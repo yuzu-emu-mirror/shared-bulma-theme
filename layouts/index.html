@@ -1,3 +1,9 @@
 {{ define "main" }}
-    <p>No articles have been written yet, check back soon!</p>
+{{ $paginator := .Paginate (where .Data.Pages "Section" "entry") 3 }}
+
+{{ range $paginator.Pages }}
+{{ .Render "summary" }}
+{{ end }}
+
+{{ partial "pagination" . }}
 {{ end }}

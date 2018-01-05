@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Params.languageCode | default " en-us " }}">
+<html lang="{{ .Site.Params.languageCode | default " en-us " }}"
+    {{- if not .IsHome }}class="has-navbar-fixed-top"{{- end }}>
 
 <head>
     <meta charset="utf-8">
@@ -18,36 +19,43 @@
 
     <title>{{- if not .IsHome }}{{ .Title }} - {{ .Site.Title }}{{- else }}{{ .Site.Title }} - {{ .Site.Params.Tagline }}{{- end}}</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu|Dosis" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css" /> {{ if eq (getenv "HUGO_ENV") "PRD" }}
     <meta name="robots" content="noindex,nofollow" /> {{ else }}
     <meta name="robots" content="noindex,nofollow" /> {{ end }}
 </head>
 
 <body>
+    {{- if .IsHome }}
+    {{ partial "header_homepage" . }}
+    {{- else }}
     {{ partial "navbar" . }}
-    
-    {{- if .IsHome }} {{ partial "header_homepage" . }} {{- end }}
+    {{- end }}
 
-    <div class="container" style="background-color: white;">
+    <div class="container">
         <section class="section">
             <div class="columns">
-                <div class="column is-3">
-                    {{ partial "sidebar" . }}
-                </div>
-                <div class="column is-9">
+                <div class="column is-8">
                     {{ block "main" . }}{{ end }}
+                </div>
+                <div class="column is-4">
+                    {{ partial "sidebar" . }}
                 </div>
             </div>
         </section>
     </div>
 
-    <footer class="footer container has-text-centered">
-        Copyright © {{ now.Format "2006" }} {{ .Site.Params.ProjectName }}
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                Copyright &copy; {{ now.Format "2006" }} {{ .Site.Params.ProjectName }}
+            </div>
+        </div>
     </footer>
 
     <script src="{{ .Site.BaseURL }}/js/script.js"></script>
 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script> {{- block "scripts" . }}{{- end }}
+    {{- block "scripts" . }}{{- end }}
 </body>
 
 </html>

@@ -1,0 +1,23 @@
+<a href="{{ .Permalink }}">
+    <div class="card">
+        <div class="card-image">
+            <figure class="image is-2by1">
+                <img src="{{ .Site.BaseURL }}/images/banners/{{ .Params.Banner | default (print .File.BaseFileName ".png") }}"
+                    alt="Placeholder image">
+            </figure>
+        </div>
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">{{ .Title }}</p>
+                    <p class="subtitle is-6">{{ .Date.Format "January 02 2006" }}</p>
+                </div>
+            </div>
+
+            <div class="content">
+                {{ .Summary }}
+            </div>
+        </div>
+    </div>
+</a>
+<br />
