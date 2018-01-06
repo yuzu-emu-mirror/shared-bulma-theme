@@ -1,1 +1,47 @@
-<code>Cannot find override file: `./layouts/partials/nav_contents.html`</code>
+<div class="container">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{{ .Site.BaseURL }}">
+            <img src="{{ .Site.BaseURL }}/images/menu.png" alt="{{ .Site.Title }} {{ .Site.Params.Tagline }}">
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <div class="navbar-end">
+            {{ $currentPage := . }}
+            {{ range .Site.Menus.main }}
+                {{ if .HasChildren }}
+                    <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-item">
+                                {{ .Name }}
+            
+                                <span class="icon">
+                                    <i class="fas fa-caret-down"></i>
+                                </span>
+                            </a>
+                            <div class="navbar-dropdown">
+                                {{ range .Children }}
+                                    <a class="navbar-item {{ if $currentPage.IsMenuCurrent "main" . }} is-active{{ end }}" href="{{ .URL }}">
+                                        {{ .Name }}
+                                    </a>
+                                {{ end }}
+                            </div>
+                        </div>
+                {{ else }}
+                    <a class="navbar-item {{ if $currentPage.IsMenuCurrent "main" . }} is-active{{ end }}" href="{{ .URL }}">
+                        {{ .Name }}
+                    </a>
+                {{ end }}
+            {{ end }}
+            <!-- Navbar icons -->
+            <a class="navbar-item is-hidden-desktop-only" href="{{ .Site.Params.TwitterURL }}" target="_blank">
+                <span class="icon">
+                    <i class="fab fa-2x fa-twitter"></i>
+                </span>
+            </a>
+            <a class="navbar-item is-hidden-desktop-only" href="{{ .Site.Params.GithubURL }}" target="_blank">
+                <span class="icon">
+                    <i class="fab fa-2x fa-github"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
