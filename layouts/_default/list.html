@@ -2,7 +2,9 @@
 {{ $paginator := .Paginate .Data.Pages }}
 
 {{ range $paginator.Pages }}
-    {{ .Render "summary" }}
+    <section class="section">
+        {{ .Render "summary" }}
+    </section>
 {{ end }}
 
 {{ partial "pagination" . }}

@@ -1,9 +1,11 @@
-{{ define "main" }}
-{{ $paginator := .Paginate (where .Data.Pages "Section" "entry") 3 }}
+{{ define "main" }} {{ $paginator := .Paginate (where .Data.Pages "Section" "entry") 3 }}
 
-{{ range $paginator.Pages }}
-{{ .Render "summary" }}
-{{ end }}
+<div class="columns">
+    {{ range $paginator.Pages }}
+    <div class="column">
+        {{ .Render "summary" }}
+    </div>
+    {{ end }}
+</div>
 
-{{ partial "pagination" . }}
-{{ end }}
+{{ partial "pagination" . }} {{ end }}
