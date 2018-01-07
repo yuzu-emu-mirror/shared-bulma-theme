@@ -1,9 +1,11 @@
 {{ define "main" }}
-<div class="box">
-    <h1 class="title">{{ .Title }}</h1>
-    <h2 class="subtitle">{{ .Date.Format "January 02 2006" }}</h2>
-    <div class="content">
-        {{ .Content }}
+<div class="container">
+    <div class="box">
+        <h1 class="title">{{ .Title }}</h1>
+        <h2 class="subtitle">{{ .Date.Format "January 02 2006" }}</h2>
+        <div class="content">
+            {{ .Content }}
+        </div>
     </div>
 </div>
 {{ end }}

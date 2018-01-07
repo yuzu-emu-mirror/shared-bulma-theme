@@ -27,9 +27,7 @@
 
 <body>
     {{- if not .IsHome }}
-        <nav class="navbar is-size-6 is-fixed-top" role="navigation" aria-label="main navigation">
-            {{ partial "layout/navbar_contents" . }}
-        </nav>
+        {{ partial "layout/navbar" . }}
     {{- end }}
 
     {{ block "main" . }}{{ end }}
