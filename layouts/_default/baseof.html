@@ -26,10 +26,10 @@
 </head>
 
 <body>
-    {{- if .IsHome }}
-    {{ partial "header_homepage" . }}
-    {{- else }}
-    {{ partial "navbar" . }}
+    {{- if not .IsHome }}
+        <nav class="navbar is-size-6 is-fixed-top" role="navigation" aria-label="main navigation">
+            {{ partial "layout/navbar_contents" . }}
+        </nav>
     {{- end }}
 
     {{ block "main" . }}{{ end }}
