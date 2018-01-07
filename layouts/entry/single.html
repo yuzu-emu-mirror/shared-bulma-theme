@@ -1,4 +1,8 @@
 {{ define "main" }}
+<figure class="image is-2by1">
+    <img src="{{.Permalink}}banner.png" alt="">
+</figure>
+
 <div class="box">
     <h1 class="title">{{ .Title }}</h1>
     <h2 class="subtitle">{{ .Date.Format "January 02 2006" }}</h2>
