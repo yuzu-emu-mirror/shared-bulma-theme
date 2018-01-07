@@ -1,11 +1,13 @@
-{{ define "main" }} {{ $paginator := .Paginate (where .Data.Pages "Section" "entry") 3 }}
-
-<div class="columns">
-    {{ range $paginator.Pages }}
-    <div class="column">
-        {{ .Render "summary" }}
-    </div>
-    {{ end }}
+{{ define "main" }}
+<div class="container">
+    <section class="section">
+        <div class="columns is-multiline">
+            {{ range sort .Site.Data.twitter "order" }}
+            <div class="column is-one-third">
+                {{ partial "widget/tweet.html" . }}
+            </div>
+            {{ end }}
+        </div>
+    </section>
 </div>
-
-{{ partial "pagination" . }} {{ end }}
+{{ end }}

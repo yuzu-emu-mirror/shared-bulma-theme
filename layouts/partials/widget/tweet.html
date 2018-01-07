@@ -1,0 +1,21 @@
+<a href="https://twitter.com/citraemu/status/{{ .id }}">
+    <div class="card">
+        <div class="card-content">
+            <div class="columns">
+                <div class="column is-2">
+                    <figure class="image is-square">
+                        <img src="{{ .Site.BaseURL}}/images/twitterAvatar.png" />
+                    </figure>
+                </div>
+                <div class="column">
+                    <p class="title is-4">{{ .author }}</p>
+                    <p class="subtitle is-6">
+                        <time datetime="2016-1-1">{{ .date }}</time> by @{{ .author }}</p>
+                </div>
+            </div>
+            <div class="content">
+                {{ .message }}
+            </div>
+        </div>
+    </div>
+</a>
