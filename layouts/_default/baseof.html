@@ -32,8 +32,8 @@
 
     {{ block "main" . }}{{ end }}
 
+    <div class="container">
     <footer class="footer">
-        <div class="container">
             <div class="content has-text-centered">
                 Copyright &copy; {{ now.Format "2006" }} {{ .Site.Params.ProjectName }}
             </div>
