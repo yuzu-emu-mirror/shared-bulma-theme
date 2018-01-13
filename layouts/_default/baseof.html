@@ -33,12 +33,10 @@
     {{ block "main" . }}{{ end }}
 
     <div class="container">
-    <footer class="footer">
-            <div class="content has-text-centered">
-                Copyright &copy; {{ now.Format "2006" }} {{ .Site.Params.ProjectName }}
-            </div>
-        </div>
-    </footer>
+        <footer class="footer">
+            {{ partial "layout/footer_contents.html" . }}
+        </footer>
+    </div>
 
     <script src="{{ .Site.BaseURL }}/js/script.js"></script>
 
