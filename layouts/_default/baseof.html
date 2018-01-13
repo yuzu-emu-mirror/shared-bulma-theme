@@ -19,9 +19,25 @@
     <title>{{- if not .IsHome }}{{ .Title }} - {{ .Site.Title }}{{- else }}{{ .Site.Title }} - {{ .Site.Params.Tagline }}{{- end}}</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu|Dosis" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css" /> {{ if eq (getenv "HUGO_ENV") "PRD" }}
-    <meta name="robots" content="noindex,nofollow" /> {{ else }}
-    <meta name="robots" content="noindex,nofollow" /> {{ end }}
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css" />
+    
+    {{ if eq (getenv "HUGO_ENV") "PRD" }}
+    <meta name="robots" content="noindex,nofollow" />
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.GoogleAnalyticsTrackingId }} }}"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', '{{ .Site.Params.GoogleAnalyticsTrackingId }}');
+    </script>
+    <!-- End Google Analytics -->
+    {{ else }}
+    <meta name="robots" content="noindex,nofollow" />
+    {{ end }}
 </head>
 
 <body>
@@ -34,23 +50,11 @@
     </div>
 
     <script src="{{ .Site.BaseURL }}/js/script.js"></script>
-    
-    {{ if eq (getenv "HUGO_ENV") "PRD" }}
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.GoogleAnalyticsTrackingId }} }}"></script>
 
+    {{- if eq (getenv "HUGO_ENV") "PRD" }}
     <script type="text/javascript">
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-
-    <!-- Google Analytics -->
-    <script type="text/javascript">
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', '{{ .Site.Params.GoogleAnalyticsTrackingId }}');
-    </script>
-    <!-- End Google Analytics -->
     {{- end }}
     
     {{- block "scripts" . }}{{- end }}
