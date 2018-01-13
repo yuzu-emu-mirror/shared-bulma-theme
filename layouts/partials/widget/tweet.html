@@ -1,12 +1,10 @@
 <a href="https://twitter.com/citraemu/status/{{ .id }}">
     <div class="card">
         <div class="card-content">
-            <div class="columns">
-                <div class="column">
-                    <p class="title is-4">@{{ .author }}</p>
-                </div>
+            <p class="title is-4">@{{ .author }}</p>
+            <div class="content">
+                {{ .message }}
             </div>
-            <div class="content">{{ .message }}</div>
             <div><time datetime="2016-1-1">Posted on {{ .date }}</time></div>
         </div>
     </div>
