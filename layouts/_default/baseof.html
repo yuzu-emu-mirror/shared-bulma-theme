@@ -39,6 +39,17 @@
     </div>
 
     <script src="{{ .Site.BaseURL }}/js/script.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112443698-1"></script>
+
+    <script type="text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ .Site.Params.GoogleAnalyticsTrackingId }}');
+
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
     {{- block "scripts" . }}{{- end }}
 </body>
