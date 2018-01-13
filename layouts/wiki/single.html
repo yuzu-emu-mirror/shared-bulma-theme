@@ -1,11 +1,19 @@
-{{ define "main" }}
-<article class="message is-primary">
-    <div class="message-body">
-        <p>The below wiki article is based on user submitted content.</p>
-        <p>Please verify <strong>all</strong> hyperlinks and terminal commands below!</p>
-        See a mistake? Want to contribute? <a href="{{ .Site.Params.GithubURL }}/wiki/{{ .File.BaseFileName }}/_edit/">Edit this article on Github</a>
-    </div>
-</article>
+<section class="section">
+    <div class="container">
+        <h1 class="title">{{ .Title }}</h1>
+        <div class="content">
 
-{{ .Content }}
-{{ end }}
+            <article class="message is-primary">
+                <div class="message-body">
+                    <p>The below wiki article is based on user submitted content.</p>
+                    <p>Please verify
+                        <strong>all</strong> hyperlinks and terminal commands below!</p>
+                    See a mistake? Want to contribute?
+                    <a href="{{ .Site.Params.GithubURL }}/wiki/{{ .File.BaseFileName }}/_edit/">Edit this article on Github</a>
+                </div>
+            </article>
+
+            {{ .Content }}
+        </div>
+    </div>
+</section>
