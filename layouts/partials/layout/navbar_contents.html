@@ -1,7 +1,7 @@
 <div class="container">
     <div class="navbar-brand">
         <a class="navbar-item" href="{{ .Site.BaseURL }}">
-            <img class="navbar-logo" src="{{ .Site.BaseURL }}/images/menu.svg" alt="{{ .Site.Title }} {{ .Site.Params.Tagline }}">
+            {{ partial "menu.html" . }}
         </a>
 
         <div class="burger navbar-burger" data-target="navMenu">
