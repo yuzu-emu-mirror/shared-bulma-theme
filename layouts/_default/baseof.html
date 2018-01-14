@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css" />
     
     {{ if eq (getenv "HUGO_ENV") "PRD" }}
-    <meta name="robots" content="noindex,nofollow" />
-
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.GoogleAnalyticsTrackingId }}"></script>
 
