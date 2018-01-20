@@ -1,18 +1,8 @@
-<a href="{{ .Permalink }}">
-    <div class="card">
-        <div class="card-image">
-            <figure class="image is-2by1">
-                <img src="{{ .Site.BaseURL }}/images/banners/{{ .Params.Banner | default (print .File.BaseFileName " .png ") }}" alt="">
-            </figure>
-        </div>
-
-        <div class="card-content">
-            <p class="title is-4">{{ .Title }}</p>
-            <p class="subtitle is-6">{{ .Date.Format "January 02 2006" }} by {{ .Params.author }}</p>
-
-            <div class="content">
-                {{ .Summary }}
-            </div>
-        </div>
-    </div>
-</a>
+<div class="column is-4">
+    <a class="is-size-5" href="{{ .Permalink }}">
+        <span class="icon">
+            <i class="fas fa-file-alt"></i>
+        </span>
+        {{ .Title }}
+    </a>
+</div>

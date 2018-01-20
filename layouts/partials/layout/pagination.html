@@ -1,21 +1,27 @@
-{{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
-  <nav aria-label="...">
-    <ul class="pager">
- 
-      {{ if .Paginator.HasPrev }}
-        <li class="previous">
-          <a rel="previous" href="{{.Paginator.Prev.URL | absURL}}"><span aria-hidden="true">&larr;</span> Previous</a>
-        </li>
+{{ $paginator := .Paginator }}
+
+<!-- If there's more than one page. -->
+{{ if gt $paginator.TotalPages 1 }}
+<div class="section">
+  <div class="container">
+    <nav class="pagination is-right" role="navigation" aria-label="pagination">
+
+      {{ if $paginator.HasPrev }}
+        <a class="pagination-previous" href="{{ $paginator.Prev.URL }}">Previous Page</a>
+      {{ end }}
+      
+      {{ if $paginator.HasNext }}
+        <a class="pagination-next" href="{{ $paginator.Next.URL }}">Next Page</a>
       {{ end }}
 
-
-      {{ if .Paginator.HasNext }}
-        <li class="next">
-          <a rel="next" href="{{.Paginator.Next.URL | absURL}}"><span aria-hidden="true">&rarr;</span> Next</a>
+      <ul class="pagination-list">
+        {{ range $paginator.Pagers }}
+        <li>
+          <a class="pagination-link" aria-label="Goto page {{ .PageNumber}}" href="{{ .URL }}">{{ .PageNumber }}</a>
         </li>
-      {{ end }}
-
-
-    </ul>
-  </nav>
+        {{ end }}
+      </ul>
+    </nav>
+  </div>
+</div>
 {{ end }}

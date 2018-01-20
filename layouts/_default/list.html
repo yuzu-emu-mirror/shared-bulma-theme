@@ -1,11 +1,13 @@
-{{ define "main" }}
-{{ $paginator := .Paginate .Data.Pages }}
+{{ define "main" }} {{ $paginator := .Paginate .Data.Pages }}
 
-{{ range $paginator.Pages }}
-    <section class="section">
-        {{ .Render "summary" }}
-    </section>
-{{ end }}
+<section class="section">
+    <div class="container">
+        <h1 class="title">{{ .Title }}</h1>
 
-{{ partial "layout/pagination" . }}
-{{ end }}
+        <div class="columns is-multiline">
+            {{ range $paginator.Pages }} {{ .Render "summary" }} {{ end }}
+        </div>
+    </div>
+</section>
+
+{{ partial "layout/pagination" . }} {{ end }}

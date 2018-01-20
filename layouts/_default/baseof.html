@@ -6,9 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="theme-color" content="#404040">
+
     <meta property="og:title" content="{{ if ne .URL " / " }}{{ .Title }} &middot; {{ end }}{{ .Site.Title }}" />
     <meta property="og:site_name" content="{{ .Site.Title }}" />
-    <meta property="og:url" content="{{ .Permalink }}" /> {{- if eq .IsPage true }} {{ .Render "meta" }} {{- end }} {{ .Hugo.Generator }}
+    <meta property="og:url" content="{{ .Permalink }}" />
+
+    {{- if eq .IsPage true }}
+    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}" />
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}" />
+    <meta property="og:type" content="website" />    
+    {{- end }}
 
     <link rel="icon" href="{{ .Site.BaseURL }}/favicon.ico" />
     <link rel="shortcut icon" href="{{ .Site.BaseURL }}/favicon.ico" type="image/x-icon" />
@@ -39,7 +46,13 @@
 </head>
 
 <body>
-    {{- if not .IsHome }} {{ partial "layout/navbar" . }} {{- end }} {{ block "main" . }}{{ end }}
+    {{- if not .IsHome }}
+        {{ partial "layout/navbar" . }}
+    {{- end }}
+
+    {{ .Render "header" }}
+    
+    {{ block "main" . }}{{ end }}
 
     <div class="container">
         <footer class="footer">
@@ -48,14 +61,13 @@
     </div>
 
     <script src="{{ .Site.BaseURL }}/js/script.js"></script>
+    {{- block "scripts" . }}{{- end }}
 
     {{- if eq (getenv "HUGO_ENV") "PRD" }}
     <script type="text/javascript">
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
     {{- end }}
-    
-    {{- block "scripts" . }}{{- end }}
 </body>
 
 </html>
