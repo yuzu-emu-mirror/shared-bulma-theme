@@ -1,0 +1,4 @@
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="{{ .Permalink }}banner.png" />

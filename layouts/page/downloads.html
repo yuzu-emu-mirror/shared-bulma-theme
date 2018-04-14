@@ -74,13 +74,12 @@
 {{ end }}
 
 {{ define "scripts" }}
-<script type="text/javascript" src="/js/moment.min.js"></script>
 <script type="text/javascript">
-function fetchReleases() {
-    getRelease('nightly');
-    getRelease('canary');
-}
+    function fetchReleases() {
+        getRelease('nightly');
+        getRelease('canary');
+    }
 
-fetchReleases();
+    fetchReleases();
 </script>
 {{ end }}

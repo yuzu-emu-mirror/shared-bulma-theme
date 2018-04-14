@@ -1,0 +1,4 @@
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="{{ .Site.BaseURL }}/logo.png" />

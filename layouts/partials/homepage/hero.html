@@ -1,0 +1,16 @@
+<section id="homepage-hero" class="hero is-primary is-bold">
+    <div class="hero-head">
+        <!-- is-dark / is-light is set by hero.js for the homepage hero -->
+        <nav id="hero-navbar" class="navbar is-size-6 is-fixed-top" role="navigation" aria-label="main navigation">
+            {{ partial "layout/navbarContents" . }}
+        </nav>
+    </div>
+
+    <div class="hero-body pt-lg pb-xxs">
+        <section class="section">
+            <div class="container">
+                {{ partial "homepage/heroContents" . }}
+            </div>
+        </section>
+    </div>
+</section>

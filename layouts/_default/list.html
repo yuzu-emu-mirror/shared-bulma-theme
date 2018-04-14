@@ -1,12 +1,14 @@
 {{ define "main" }} {{ $paginator := .Paginate .Data.Pages }}
 
 <section class="section">
-    <div class="container">
-        <h1 class="title">{{ .Title }}</h1>
+    <h1 class="title">{{ .Title }}</h1>
 
-        <div class="columns is-multiline">
-            {{ range $paginator.Pages }} {{ .Render "summary" }} {{ end }}
+    <div class="columns is-multiline">
+        {{ range $paginator.Pages }}
+        <div class="column is-6">
+            {{ .Render "summary" }}
         </div>
+        {{ end }}
     </div>
 </section>
 

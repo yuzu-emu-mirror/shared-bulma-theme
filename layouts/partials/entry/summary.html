@@ -1,48 +1,33 @@
 {{ if .Params.twitter }}
-<div class="column is-4">
-    <a class="is-size-5" href="{{ .Params.twitterUrl }}">
-        <span class="icon">
-            <i class="fas fa-file-alt"></i>
+<div class="mb-md blog-entry-header summary twitter" data-href="{{ .Params.twitterUrl }}">
+    <div class="px-md">
+        <span class="h3 moment-timeago">{{ .Date.Format $.Site.Params.fmt.ISO8601 }}</span>
+    </div>
+    <div class="mt-md px-md">
+        <span class="h3">{{ .Content }}</span>
+    </div>
+    <div style="position: absolute; bottom: 0; right: 0;">
+        <span class="h3 px-md py-sm has-background-dark">
+            <a href="{{ .Params.twitterUrl }}">View Tweet</a>
         </span>
-        TWITTER {{ .Title }}
-    </a>
+    </div>
 </div>
 {{ else }}
 {{ $author := index .Site.Data.authors ( .Params.author | default "" ) }}
-<div class="mb-md blog-entry-summary" data-href="{{ .Permalink }}">
-    <div class="blog-entry-header-image is-3by1" style="background-image: url('/{{ .Dir }}/banner.png')">
-        &nbsp;
+<div class="mb-md blog-entry-header summary" style="background-image: url('/{{ .Dir }}/banner.png')" data-href="{{ .Permalink }}">
+    <div class="px-md">
+        <span class="title">{{ .Title }}</span>
     </div>
-    <div class="blog-entry-header-content is-3by1">
-        <div style="position: absolute; bottom: 1em;">
-            <div>
-                <span class="title px-md py-sm has-background-dark">{{ .Title }}</span>
-            </div>
-            {{ if $author }}
-            <div style="padding-top: 2em;">
-                <span class="h3 px-md py-sm has-background-dark">
-                    Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a> 
-                    on {{ .Date.Format "January 02 2006" }}
-                </span>
-            </div>
-            {{ else }}
-            <div style="padding-top: 2em;">
-                <span class="h3 px-md py-sm has-background-dark">
-                    Written on {{ .Date.Format "January 02 2006" }}
-                </span>
-            </div>
-            {{ end }}
-            <div style="padding-top: 2em;">
-                <span class="h3 px-md py-sm has-background-dark">
-                    {{ .Summary }}
-                </span>
-            </div>
-            <div style="padding-top: 2em;">
-                <span class="h3 px-md py-sm has-background-dark">
-                    <a href="{{ .Permalink }}">Read More</a>
-                </span>
-            </div>
-        </div>
+    <div class="px-md">
+        <span class="h3 moment-timeago">{{ .Date.Format $.Site.Params.fmt.ISO8601 }}</span>
+    </div>
+    <div class="mt-md px-md">
+        <span class="h3">{{ .Summary }}</span>
+    </div>
+    <div style="position: absolute; bottom: 0; right: 0;">
+        <span class="h3 px-md py-sm has-background-dark">
+            <a href="{{ .Permalink }}">Read More</a>
+        </span>
     </div>
 </div>
 {{ end }}
