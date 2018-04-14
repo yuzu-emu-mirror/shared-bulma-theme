@@ -1,13 +1,14 @@
 {{ if .Params.twitter }}
-<div class="mb-md blog-entry-header summary twitter" data-href="{{ .Params.twitterUrl }}">
-    <div class="px-md">
+<div class="mb-md blog-entry-header summary twitter" style="background-image: none;" data-href="{{ .Params.twitterUrl }}">
+    <div class="px-md has-text-weight-semibold">
+        <span class="h3">{{ .Date.Format $.Site.Params.fmt.Date }}</span> - 
         <span class="h3 moment-timeago">{{ .Date.Format $.Site.Params.fmt.ISO8601 }}</span>
     </div>
     <div class="mt-md px-md">
         <span class="h3">{{ .Content }}</span>
     </div>
-    <div style="position: absolute; bottom: 0; right: 0;">
-        <span class="h3 px-md py-sm has-background-dark">
+    <div class="px-md py-sm" style="position: absolute; bottom: 0; right: 0;">
+        <span class="h3">
             <a href="{{ .Params.twitterUrl }}">View Tweet</a>
         </span>
     </div>
@@ -19,6 +20,7 @@
         <span class="title">{{ .Title }}</span>
     </div>
     <div class="px-md">
+        <span class="h3">{{ .Date.Format $.Site.Params.fmt.Date }}</span> - 
         <span class="h3 moment-timeago">{{ .Date.Format $.Site.Params.fmt.ISO8601 }}</span>
     </div>
     <div class="mt-md px-md">

@@ -9,13 +9,13 @@
         <div class="mt-lg">
             <span class="h3 px-md py-sm has-background-dark">
                 Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a> 
-                on {{ .Date.Format "January 02 2006" }}
+                on {{ .Date.Format $.Site.Params.fmt.Date }}
             </span> 
         </div>
         {{ else }}
         <div>
             <span class="h3 px-md py-sm has-background-dark">
-                Written on {{ .Date.Format "January 02 2006" }}
+                Written on {{ .Date.Format $.Site.Params.fmt.Date }}
             </span>
         </div>
         {{ end }}
@@ -28,19 +28,10 @@
     {{ .Content }}
 </div>
 
-<!--
 {{ if .Params.forum }}
-<div class="entry-comments">
-  <div id="discourse-comments"></div>
-  <script type="text/javascript">
-    DiscourseEmbed = { discourseUrl: 'https://community.citra-emu.org/', topicId: "{{ .Params.forum }}" };
-    (function() {
-      var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
-      d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
-    })();
-  </script>
+<div class="has-text-centered">
+    <a class="pagination-next" href="https://community.citra-emu.org/t/{{ .Params.forum }}">Continue the discussion on our forums.</a>
 </div>
 {{ end }}
--->
+
 {{ end }}
