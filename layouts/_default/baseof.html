@@ -52,7 +52,25 @@
 
     {{ .Render "header" }}
     
-    {{ block "main" . }}{{ end }}
+    {{ block "header" . }}{{ end }}
+
+    {{ $full_width := .Params.FullWidth | default false }}
+    {{ if eq $full_width true }}
+        <div class="container">
+            {{ block "main" . }}{{ end }}
+        </div>
+    {{ else }}
+        <div class="container">
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    {{ block "main" . }}{{ end }}
+                </div>
+                <div class="column">
+                    {{ partial "layout/sidebar" }}
+                </div>
+            </div>
+        </div>
+    {{ end }}
 
     <div class="container">
         <footer class="footer">

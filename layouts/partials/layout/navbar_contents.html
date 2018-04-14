@@ -14,7 +14,7 @@
         <div class="navbar-start">
             {{ $currentPage := . }} {{ range .Site.Menus.main }} {{ if .HasChildren }}
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-item">
+                <a class="navbar-item px-sm">
                     {{ .Name }}
 
                     <span class="icon">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             {{ else }}
-            <a class="navbar-item {{ if $currentPage.IsMenuCurrent " main " . }} is-active{{ end }}" href="{{ .URL }}">
+            <a class="navbar-item px-md {{ if $currentPage.IsMenuCurrent " main " . }} is-active{{ end }}" href="{{ .URL }}">
                 {{ .Name }}
             </a>
             {{ end }} {{ end }}
@@ -48,17 +48,17 @@
 
         <div class="navbar-end">
             <!-- Navbar icons -->
-            <a class="navbar-item is-hidden-touch" href="{{ .Site.Params.DiscordURL }}" target="_blank">
+            <a class="navbar-item px-md is-hidden-touch" href="{{ .Site.Params.DiscordURL }}" target="_blank">
                 <span class="icon">
                     <i class="fab fa-2x fa-discord"></i>
                 </span>
             </a>
-            <a class="navbar-item is-hidden-touch" href="{{ .Site.Params.TwitterURL }}" target="_blank">
+            <a class="navbar-item px-md is-hidden-touch" href="{{ .Site.Params.TwitterURL }}" target="_blank">
                 <span class="icon">
                     <i class="fab fa-2x fa-twitter"></i>
                 </span>
             </a>
-            <a class="navbar-item is-hidden-touch" href="{{ .Site.Params.GithubURL }}" target="_blank">
+            <a class="navbar-item px-md is-hidden-touch" href="{{ .Site.Params.GithubURL }}" target="_blank">
                 <span class="icon">
                     <i class="fab fa-2x fa-github"></i>
                 </span>

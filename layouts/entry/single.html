@@ -1,0 +1,53 @@
+{{ define "header" }}
+{{ $author := index .Site.Data.authors ( .Params.author | default "" ) }}
+<div class="container">
+    <div>
+        <div class="blog-entry-header-image is-3by1" style="background-image: url('./banner.png')">
+            &nbsp;
+        </div>
+        <div class="blog-entry-header-content is-3by1">
+            <div style="position: absolute; bottom: 3em;">
+                <div>
+                    <span class="title px-md py-sm has-background-dark">{{ .Title }}</span>
+                </div>
+                {{ if $author }}
+                <div style="padding-top: 2em;">
+                    <span class="h3 px-md py-sm has-background-dark">
+                        Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a> 
+                        on {{ .Date.Format "January 02 2006" }}
+                    </span> 
+                </div>
+                {{ else }}
+                <div style="padding-top: 2em;">
+                        <span class="h3 px-md py-sm has-background-dark">
+                            Written on {{ .Date.Format "January 02 2006" }}
+                        </span>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "main" }}
+<div class="content pt-lg">
+    {{ .Content }}
+</div>
+
+<!--
+{{ if .Params.forum }}
+<div class="entry-comments">
+  <div id="discourse-comments"></div>
+  <script type="text/javascript">
+    DiscourseEmbed = { discourseUrl: 'https://community.citra-emu.org/', topicId: "{{ .Params.forum }}" };
+    (function() {
+      var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+      d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+    })();
+  </script>
+</div>
+{{ end }}
+-->
+{{ end }}
