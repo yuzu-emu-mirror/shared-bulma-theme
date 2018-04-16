@@ -15,7 +15,7 @@
 </div>
 {{ else }}
 {{ $author := index .Site.Data.authors ( .Params.author | default "" ) }}
-<div class="mb-md blog-entry-header summary" style="background-image: url('/{{ .Dir }}/banner.png')" data-href="{{ .Permalink }}">
+<div class="mb-md blog-entry-header summary entry" style="background-image: url('/{{ .Dir }}/summary.png')" data-href="{{ .Permalink }}">
     <div class="px-md">
         <span class="title">{{ .Title }}</span>
     </div>
