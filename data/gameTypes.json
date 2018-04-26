@@ -1,0 +1,7 @@
+{
+    "switch": { "key": "switch", "name": "Switch Game" },
+    "3ds": { "key": "3ds", "name": "3DS Game" },
+    "dsiware": { "key": "dsiware", "name": "DSI Ware" },
+    "eshop": { "key": "eshop", "name": "eShop" },
+    "vc": { "key": "vc", "name": "Virtual Console" }
+}

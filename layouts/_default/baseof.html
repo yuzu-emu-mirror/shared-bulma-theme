@@ -58,7 +58,7 @@
     {{ block "header" . }}{{ end }}
 
     {{ $full_width := .Params.FullWidth | default false }}
-    {{- if eq .IsPage false }}
+    {{- if .IsHome }}
         <div class="container">
             {{ block "main" . }}{{ end }}
         </div>
