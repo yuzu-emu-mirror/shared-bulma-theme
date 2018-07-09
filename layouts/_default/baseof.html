@@ -22,7 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu|Dosis" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css" />
-    
+    {{- block "css" . }}{{- end }}
+
     {{ if eq (getenv "HUGO_ENV") "PRD" }}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.GoogleAnalyticsTrackingId }}"></script>
@@ -46,7 +47,7 @@
     {{- end }}
 
     {{ .Render "header" }}
-    
+
     {{ block "header" . }}{{ end }}
 
     {{ $full_width := .Params.FullWidth | default false }}
