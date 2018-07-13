@@ -1,0 +1,19 @@
+<!-- Usage: {{< gifv "url|title" "url2|title" >}} -->
+<div class="columns">
+    {{ range $param := .Params }}
+    <!-- gifv -->
+    {{ $items := split $param "|" }}
+    {{ $src := (index $items 0) }}
+    {{ $title := (index $items 1) }}
+    <div class="column">
+        <video preload="auto" autoplay="autoplay" muted="muted" loop="loop" webkit-playsinline="">
+            <source src="{{ $src }}" type="video/mp4">
+            Your browser doesn't support mp4 video. :(
+        </video>
+
+        {{ if $title }}
+            <p class="has-text-centered is-italic has-text-grey-light">{{ $title }}</p>
+        {{ end }}
+    </div>
+    {{ end }}
+</div>
