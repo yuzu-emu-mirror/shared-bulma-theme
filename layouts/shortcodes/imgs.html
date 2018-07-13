@@ -1,0 +1,16 @@
+<div class="columns is-img-preview">
+    {{ range $param := .Params }}
+    <!-- image -->
+    {{ $items := split $param "|" }}
+    {{ $src := (index $items 0) }}
+    {{ $title := (index $items 1) }}
+    <div class="column">
+        <a href="{{ $src }}" title="{{ $title }}">
+            <img src="{{ $src }}" alt="{{ $title }}">
+        </a>
+        {{ if $title }}
+            <p class="has-text-centered is-italic has-text-grey-light">{{ $title }}</p>
+        {{ end }}
+    </div>
+    {{ end }}
+</div>
