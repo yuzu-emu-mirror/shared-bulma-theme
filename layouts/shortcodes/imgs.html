@@ -4,10 +4,19 @@
     {{ $items := split $param "|" }}
     {{ $src := (index $items 0) }}
     {{ $title := (index $items 1) }}
+    {{ $split_src := split $src "." }}
+    {{ $extension := index $split_src (sub (len $split_src) 1) }}
     <div class="column">
-        <a href="{{ $src }}" title="{{ $title }}">
-            <img src="{{ $src }}" alt="{{ $title }}">
-        </a>
+        {{ if eq $extension "mp4" }}
+            <video preload="auto" autoplay="autoplay" muted="muted" loop="loop" webkit-playsinline="">
+                <source src="{{ $src }}" type="video/mp4">
+                Your browser doesn't support mp4 video. :(
+            </video>
+        {{ else }}
+            <a href="{{ $src }}" title="{{ $title }}">
+                <img src="{{ $src }}" alt="{{ $title }}">
+            </a>
+        {{ end }}
         {{ if $title }}
             <p class="has-text-centered is-italic has-text-grey-light">{{ $title }}</p>
         {{ end }}
