@@ -1,0 +1,12 @@
+<article class="message">
+    <div class="message-header is-dropdown">
+        <p>{{ .Get 0 }}</p>
+
+        <span class="icon">
+            <i class="fas fa-lg fa-arrow-circle-down"></i>
+        </span>
+    </div>
+    <div class="message-body is-dropdown-target">
+        {{ .Inner | markdownify }}
+    </div>
+</article>
