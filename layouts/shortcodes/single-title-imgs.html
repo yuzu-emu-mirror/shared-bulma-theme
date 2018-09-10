@@ -1,0 +1,27 @@
+{{ $title := .Get 0 }}
+<div class="columns is-img-preview is-bottom-marginless">
+    {{ range $param := last (sub (len .Params) 1) .Params }}
+    <!-- image -->
+    {{ $items := split $param "|" }}
+    {{ $src := (index $items 0) }}
+    {{ $subtitle := (index $items 1) }}
+    {{ $split_src := split $src "." }}
+    {{ $extension := index $split_src (sub (len $split_src) 1) }}
+    <div class="column is-bottom-paddingless">
+        {{ if eq $extension "mp4" }}
+            <video preload="auto" autoplay="autoplay" muted="muted" loop="loop" webkit-playsinline="">
+                <source src="{{ $src }}" type="video/mp4">
+                Your browser doesn't support mp4 video. :(
+            </video>
+        {{ else }}
+            <a href="{{ $src }}" title="{{ $subtitle }}">
+                <img src="{{ $src }}" alt="{{ $subtitle }}">
+            </a>
+        {{ end }}
+    </div>
+    {{ end }}
+</div>
+
+{{ if $title }}
+<p class="has-text-centered is-italic has-text-grey-light">{{ $title }}</p>
+{{ end }}
