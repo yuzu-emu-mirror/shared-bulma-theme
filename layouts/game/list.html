@@ -3,18 +3,18 @@
     <div class="section pb-xs">
         <h1 class="title">Game Compatibility List</h1>
         <p class="content">
-            The Citra Emulator compatibility list contains all the games we tested, sorted by how well they work on the emulator.
+            The compatibility list contains all the games we tested, sorted by how well they work on the emulator.
         </p>
         <table class="table is-fullwidth">
             <tbody>
-            {{ range .Site.Data.compatibility }}
-            <tr>
-                <td>
-                    <div class="is-square" style="background-color: {{ .color }}"></div> {{ .name }}
-                </td>
-                <td>{{ .description }}</td>
-            </tr>
-            {{ end }}
+                {{ range .Site.Data.compatibility }}
+                <tr>
+                    <td>
+                        <div class="is-square" style="background-color: {{ .color }}"></div> {{ .name }}
+                    </td>
+                    <td>{{ .description }}</td>
+                </tr>
+                {{ end }}
             </tbody>
         </table>
 
@@ -24,8 +24,8 @@
 {{ end }}
 
 {{ define "main" }}
-    <div class="section pt-xs">
-        <table class="table is-fullwidth">
+<div class="section pt-xs">
+    <table class="table is-fullwidth">
         <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -36,61 +36,60 @@
         </thead>
         <tbody>
             {{ range .Data.Pages.GroupByParam "section_id" }}
-                {{ range .Pages }}
-                    {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
-                    {{ $type := index .Site.Data.gameTypes (.Params.game_type | default "3ds") }}
-                    <tr data-key="{{ .Params.section_id }}">
-                        <td class="is-hidden listing-metadata">
-                            <span>{{ .Params.title }} {{ $type.name }} {{ $rating.name }} {{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
-                        </td>
-                        <td>
-                            <img src="{{ .Site.BaseURL }}/images/game/icons/{{ .File.BaseFileName }}.png" />
-                        </td>
-                        <td data-title="{{ strings.TrimPrefix "The " .Params.title }}">
-                            <a href="{{ .Permalink }}">{{ .Params.title }}</a>
-                        </td>
-                        <td data-compatibility="{{ $rating.key }}">
-                            <div class="is-square" style="background-color: {{ $rating.color }}"></div> <span>{{ $rating.name }}</span>
-                        </td>
-                        <td data-timestamp="{{ .Params.testcase_date }}">
-                            <span>{{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
-                        </td>
-                    </tr>
-                {{ end }}
+            {{ range .Pages }}
+            {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
+            {{ $type := index .Site.Data.gameTypes (.Params.game_type | default "3ds") }}
+            <tr data-key="{{ .Params.section_id }}">
+                <td class="is-hidden listing-metadata">
+                    <span>{{ .Params.title }} {{ $type.name }} {{ $rating.name }} {{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
+                </td>
+                <td>
+                    <img src="{{ .Site.BaseURL }}/images/game/icons/{{ .File.BaseFileName }}.png" style="width: 48px; height: 48px;" />
+                </td>
+                <td data-title="{{ strings.TrimPrefix "The " .Params.title }}">
+                    <a href="{{ .Permalink }}">{{ .Params.title }}</a>
+                </td>
+                <td data-compatibility="{{ $rating.key }}">
+                    <div class="is-square" style="background-color: {{ $rating.color }}"></div> <span>{{ $rating.name }}</span>
+                </td>
+                <td data-timestamp="{{ .Params.testcase_date }}">
+                    <span>{{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
+                </td>
+            </tr>
+            {{ end }}
             {{ end }}
         </tbody>
-        </table>
-    </div>
+    </table>
 </div>
 {{ end }}
 
 {{ define "scripts" }}
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-		Highcharts.chart('highchart-container', {
-			chart: { type: 'bar', backgroundColor: null },
-			colors: [{{ range .Site.Data.compatibility }}"{{ .color }}", {{- end }}],
-			credits: { enabled: false },
-				exporting: { enabled: false },
-			title: { text: '' },
-			xAxis: { categories: [''] },
-			yAxis: { min: 0, max: {{ len .Data.Pages }}, title: { text: '' } },
-			legend: { enabled: false },
-			plotOptions: { series: {
-				stacking: 'normal',
-				cursor: 'pointer',
-				events: {
-					click: null
-				}
-			} },
-			series: [
-					{{- $dataPages := .Data.Pages }}
-					{{- range .Site.Data.compatibility }}
-					{{- $dataPagesFiltered := where $dataPages ".Params.compatibility" .key }}
-					{ "name": "{{ .name }}", "data": [ {{ len $dataPagesFiltered }} ] },
-					{{- end }}
-				]
-		});
+    document.addEventListener('DOMContentLoaded', function () {
+        Highcharts.chart('highchart-container', {
+            chart: { type: 'bar', backgroundColor: null },
+            colors: [{{ range .Site.Data.compatibility }}"{{ .color }}", {{- end }}],
+        credits: { enabled: false },
+        exporting: { enabled: false },
+        title: { text: '' },
+        xAxis: { categories: [''] },
+        yAxis: { min: 0, max: {{ len .Data.Pages }}, title: { text: '' } },
+        legend: { enabled: false },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                cursor: 'pointer',
+                events: {
+                    click: null
+                }
+            }
+        },
+        series: [
+            {{- $dataPages := .Data.Pages }}
+            {{- range.Site.Data.compatibility }}
+            {{- $dataPagesFiltered := where $dataPages ".Params.compatibility".key }}
+            { "name": "{{ .name }}", "data": [{{ len $dataPagesFiltered }}] },
+        {{- end }}]});
 	}, false);
 </script>
 {{ end }}
