@@ -1,43 +1,27 @@
 {{ define "main" }}
-<section class="section" id="gallery">
+<section class="section baguetteBox">
     <h1 class="title">{{ .Title }}</h1>
 
     {{ .Content }}
 
     <div class="tile is-ancestor">
-    {{ $columns := 3 }}
-    {{ $files := readDir "/static/images/screenshots/" }}
-    {{ range $index, $element := (shuffle $files) }}
-    {{ $fileTitle := (index (split .Name "-") 1) }}
-    {{ $fileTitle := (index (split $fileTitle ".") 0) }}
+        {{ $columns := 3 }}
+        {{ $files := readDir "/static/images/screenshots/" }}
+        {{ range $index, $element := (shuffle $files) }}
+        {{ $fileTitle := (index (split .Name "-") 1) }}
+        {{ $fileTitle := (index (split $fileTitle ".") 0) }}
         <div class="tile is-parent">
             <div class="tile is-child is-boxed">
                 <a href="/images/screenshots/{{ .Name }}" title="{{ $fileTitle }}">
-                    <figure class="image is-16by9">
-                        <img src="/images/screenshots/thumbs/{{ .Name }}" alt="{{ $fileTitle }}">
-                    </figure>
+                    <img src="/images/screenshots/thumbs/{{ .Name }}" alt="{{ $fileTitle }}">
                 </a>
             </div>
         </div>
-    {{if eq (mod $index $columns) (sub $columns 1)}}
+        {{if eq (mod $index $columns) (sub $columns 1)}}
     </div>
     <div class="tile is-ancestor">
-    {{ end }}
-    {{ end }}
+        {{ end }}
+        {{ end }}
     </div>
 </section>
-{{ end }}
-
-{{ define "css" }}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css" type="text/css" />
-{{ end }}
-
-{{ define "scripts" }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    window.addEventListener("DOMContentLoaded", function() {
-        baguetteBox.run('#gallery');
-    });
-</script>
 {{ end }}

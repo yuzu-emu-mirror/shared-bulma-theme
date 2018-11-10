@@ -1,0 +1,157 @@
+{{ define "sidebar" }}
+{{ $gameId := .File.BaseFileName }}
+{{ $rating := index .Site.Data.compatibility .Params.compatibility }}
+<section class="section content pt-sm">
+    <div class="has-text-centered py-md">
+        <img src="{{ .Site.BaseURL }}/images/game/boxart/{{ .Params.Banner | default (print .File.BaseFileName ".png") }}" />
+    </div>
+
+    <div class="columns is-mobile">
+        <div class="column is-one-third">Compatibility</div>
+        <div class="column">
+            <div><span class="is-square" style="background-color: {{ $rating.color }};"></span> {{ $rating.name }}</div>
+            <div>{{ $rating.description }}</div>
+        </div>
+    </div>
+
+    <div class="columns is-mobile">
+        <div class="column is-one-third">Release(s)</div>
+        <div class="column">
+            {{ range .Params.releases }}
+            <div>
+                <div><img src="{{ .Site.BaseURL }}/images/regions/{{ .region }}.png" /> {{ .id }}</div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+{{ define "main" }}
+{{ $gameId := .File.BaseFileName }}
+{{ $rating := index .Site.Data.compatibility .Params.compatibility }}
+<section class="section content pt-sm">
+    {{- if eq .Params.incomplete true }}
+    <article class="message is-danger is-size-7">
+        <div class="message-body">
+            <p>This page is considered <b>INCOMPLETE</b> due to any one of the following reasons:</p>
+            <ul>
+                <li>Missing screenshots</li>
+                <li>Missing/insufficient wiki article</li>
+                <li>Unverified game compatibility rating</li>
+            </ul>
+            <p>The information below may not accurately represent your experience.</p>
+            <p>Pages that are left incomplete may be subject for removal. We encourage you to submit additional
+                content.</p>
+        </div>
+    </article>
+    {{ end }}
+
+    <article class="message is-size-7">
+        <div class="message-body">
+            <p>The below game entry is based on user submitted content.</p>
+            <p>See a mistake? Want to contribute? <a href="{{ .Site.Params.GithubGamesWikiURL }}/wiki/{{ .File.BaseFileName }}/_edit/">Edit
+                    this article on Github</a></p>
+        </div>
+    </article>
+
+    <h1>{{ .Params.title }}</h1>
+
+    <h2>Summary</h2>
+    {{ if .Content }}
+    {{ .Content }}
+    {{ else }}
+    <p>This game does not yet have a wiki article.</p>
+    <p>Please use the edit button up above to create one.</p>
+    {{ end }}
+
+    <h2>Compatibility</h2>
+    {{ if gt (len .Params.issues) 0 }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="advanced-view">ID</th>
+                <th>Build Date</th>
+                <th>Tested By</th>
+                <th>Hardware</th>
+                <th>Citra Version</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ $siteCompatibility := .Site.Data.compatibility }}
+            {{ range .Params.testcases }}
+            {{- $rating := index $siteCompatibility .compatibility }}
+            <tr class="is-size-7">
+                <td class="advanced-view">{{ if isset . "id" }} {{ .id }} {{ end }}</td>
+                <td>{{ if isset . "buildDate" }} {{ dateFormat "01/2/2006" .buildDate }} {{ end }}</td>
+                <td>
+                    <a href="https://community.citra-emu.org/u/{{ .author }}/summary">{{ .author }}</a>
+                    <small>on {{ dateFormat "01/02/2006" .date }}</small>
+                </td>
+                <td>{{ .cpu }}<br />{{ .gpu }}<br />{{ .os }}</td>
+                <td>{{ if isset . "buildName" }}{{ .buildName }} Build<br />{{ end }}{{ .version }}</td>
+                <td>
+                    <b>
+                        <div class="square-icon" style="background-color: {{ $rating.color }}"></div>
+                        {{ $rating.name}}
+                    </b>
+                </td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    {{ else }}
+    <p>This game is untested. Please play through this game and report your compatibility with this title.</p>
+    {{ end }}
+
+    {{ if gt (len .Params.issues) 0 }}
+    <h2>Known Issues</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="is-size-7">
+                <th>
+                    <a href="#">Pokemon Main Series (XY, ORAS, SM, USUM) - Hangs When Soft Resetting</a>
+                </th>
+                <td>4/30/2018</td>
+                <td>7/08/2018</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ end }}
+
+    <h2>Screenshots</h2>
+    {{ $columns := 3 }}
+    {{ if (where (readDir "/static/images/screenshots0") "Name" .File.BaseFileName) }}
+    <div class="baguetteBox">
+        <div class="tile is-ancestor">
+            {{ $files := readDir (printf "/static/images/screenshots0/%s/" .File.BaseFileName) }}
+            {{ range $index, $element := (shuffle $files) }}
+            {{ $fileTitle := (index (split .Name "-") 1) }}
+            {{ $fileTitle := (index (split $fileTitle ".") 0) }}
+            <div class="tile is-parent">
+                <div class="tile is-child is-boxed">
+                    <a href="/images/screenshots0/{{ $gameId }}/{{ .Name }}">
+                        <img src="/images/screenshots0/{{ $gameId }}/{{ .Name }}" />
+                    </a>
+                </div>
+            </div>
+            {{ if eq (mod $index $columns) (sub $columns 1) }}
+        </div>
+        <div class="tile is-ancestor">
+            {{ end }}
+            {{ end }}
+        </div>
+    </div>
+    {{ else }}
+    <p>No screenshots have been uploaded for this game.</p>
+    {{ end }}
+</section>
+{{ end }}

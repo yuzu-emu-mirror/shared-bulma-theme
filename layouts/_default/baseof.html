@@ -51,6 +51,7 @@
     {{ block "header" . }}{{ end }}
 
     {{ $full_width := .Params.FullWidth | default false }}
+    {{ $left_sidebar := .Params.left_sidebar | default false }}
     {{- if .IsHome }}
         <div class="container">
             {{ block "main" . }}{{ end }}
@@ -59,6 +60,18 @@
         <div class="container">
             {{ block "main" . }}{{ end }}
         </div>
+    {{ else if eq $left_sidebar true }}
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    {{ block "sidebar" . }}{{ end }}
+                    {{ partial "layout/sidebar" }}
+                </div>
+                <div class="column is-two-thirds">
+                    {{ block "main" . }}{{ end }}
+                </div>
+            </div>
+        </div>
     {{ else }}
         <div class="container">
             <div class="columns">
@@ -66,6 +79,7 @@
                     {{ block "main" . }}{{ end }}
                 </div>
                 <div class="column">
+                    {{ block "sidebar" . }}{{ end }}
                     {{ partial "layout/sidebar" }}
                 </div>
             </div>
