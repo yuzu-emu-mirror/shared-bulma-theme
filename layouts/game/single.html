@@ -64,6 +64,8 @@
 
     <h1>{{ .Params.title }}</h1>
 
+    {{ .Description }}
+
     <h2>Summary</h2>
     {{ if .Content }}
     {{ .Content }}
@@ -80,7 +82,7 @@
                 <th>Build Date</th>
                 <th>Tested By</th>
                 <th>Hardware</th>
-                <th>Citra Version</th>
+                <th>Version</th>
                 <th>Rating</th>
             </tr>
         </thead>
