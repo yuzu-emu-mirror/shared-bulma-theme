@@ -29,6 +29,7 @@
 
 {{ define "main" }}
 {{ $gameId := .File.BaseFileName }}
+{{ $wikiId := .Params.wiki_override | default $gameId }}
 {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
 <section class="section content pt-lg">
     {{- if eq .Params.incomplete true }}
@@ -51,11 +52,11 @@
         <div class="message-body">
             {{ if .Content }}
             <p>The below game entry is based on user submitted content.</p>
-            <p>See a mistake? Want to contribute? <a href="{{ .Site.Params.GithubGamesWikiURL }}/wiki/{{ .File.BaseFileName }}/_edit/">Edit
+            <p>See a mistake? Want to contribute? <a href="{{ .Site.Params.GithubGamesWikiURL }}/wiki/{{ $wikiId }}/_edit/">Edit
                     this article on Github</a></p>
             {{ else }}
             <p>The below game entry is based on user submitted content.</p>
-            <p>See a mistake? Want to contribute? <a href="{{ .Site.Params.GithubGamesWikiURL }}/wiki/{{ .File.BaseFileName }}/">Edit
+            <p>See a mistake? Want to contribute? <a href="{{ .Site.Params.GithubGamesWikiURL }}/wiki/{{ $wikiId }}/">Edit
                     this article on Github</a></p>
             {{ end }}
         </div>
