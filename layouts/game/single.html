@@ -123,13 +123,16 @@
             </tr>
         </thead>
         <tbody>
+            {{ $githubUrl := .Site.Params.GithubURL }}
+            {{ range .Params.issues }}
             <tr class="is-size-7">
                 <th>
-                    <a href="#">Pokemon Main Series (XY, ORAS, SM, USUM) - Hangs When Soft Resetting</a>
+                    <a href="{{ $githubUrl }}/issues/{{ .id }}">{{ .title }}</a>
                 </th>
-                <td>4/30/2018</td>
-                <td>7/08/2018</td>
+                <td>{{ dateFormat "January 2, 2006" .created_at }}</td>
+                <td>{{ dateFormat "January 2, 2006" .updated_at }}</td>
             </tr>
+            {{ end }}
         </tbody>
     </table>
     {{ end }}
@@ -159,6 +162,6 @@
     </div>
     {{ else }}
     <p>No screenshots have been uploaded for this game.</p>
-    {{ end }}
+    {{ end }}https://citra-emu.org/game/new-super-mario-bros-2/
 </section>
 {{ end }}
