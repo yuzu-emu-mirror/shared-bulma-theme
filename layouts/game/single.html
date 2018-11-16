@@ -149,7 +149,7 @@
         <tbody>
             {{ range .Params.savefiles }}
             <tr>
-              <td><a href="/savefiles/{{ $gameName }}/{{ .basename }}.zip">{{ .title }}</a></td>
+              <td><a href="/savefiles/{{ $gameId }}/{{ .basename }}.zip">{{ .title }}</a></td>
               <td>{{ .description }}</td>
             </tr>
             {{ end }}
