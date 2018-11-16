@@ -137,9 +137,29 @@
     </table>
     {{ end }}
 
-    <h2>Screenshots</h2>
+    {{ if gt (len .Params.savefiles) 0 }}
+    <h2>Savefiles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .Params.savefiles }}
+            <tr>
+              <td><a href="/savefiles/{{ $gameName }}/{{ .basename }}.zip">{{ .title }}</a></td>
+              <td>{{ .description }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    {{ end }}
+
     {{ $columns := 3 }}
     {{ if (where (readDir "/static/images/screenshots0") "Name" .File.BaseFileName) }}
+    <h2>Screenshots</h2>
     <div class="baguetteBox">
         <div class="tile is-ancestor">
             {{ $files := readDir (printf "/static/images/screenshots0/%s/" .File.BaseFileName) }}
@@ -160,8 +180,6 @@
             {{ end }}
         </div>
     </div>
-    {{ else }}
-    <p>No screenshots have been uploaded for this game.</p>
     {{ end }}
 </section>
 {{ end }}
