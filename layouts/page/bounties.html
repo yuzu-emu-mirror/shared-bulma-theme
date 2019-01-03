@@ -1,0 +1,59 @@
+{{ define "main" }}
+<div class="container">
+    <section class="section">
+        <h1 class="title">{{ .Title }}</h1>
+        <div class="content">
+            {{ .Content }}
+        </div>
+
+        <table class="table is-fullwidth">
+            <thead>
+                <tr>
+                    <th>Date Submitted</th>
+                    <th>Requester</th>
+                    <th>Developer</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Payment Status</th>
+                    <th>Developer Response</th>
+                    <th>Date Expires</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .Site.Data.bounties }}
+                <tr>
+                    <td>
+                        {{ .DateSubmitted }}
+                    </td>
+                    <td>
+                        {{ .Requester }}
+                    </td>
+                    <td>
+                        {{ .Developer }}
+                    </td>
+                    <td>
+                        {{ .Status }}
+                    </td>
+                    <td>
+                        {{ .Amount }}
+                    </td>
+                    <td>
+                        {{ .Description }}
+                    </td>
+                    <td>
+                        {{ .PaymentStatus }}
+                    </td>
+                    <td>
+                        {{ .DeveloperResponse }}
+                    </td>
+                    <td>
+                        {{ .DateExpires }}
+                    </td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </section>
+</div>
+{{ end }}

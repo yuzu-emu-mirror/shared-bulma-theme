@@ -74,6 +74,31 @@
     <p>Please use the edit button up above to create one.</p>
     {{ end }}
 
+    {{ if gt (len .Params.issues) 0 }}
+    <h2>Known Issues</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ $githubUrl := .Site.Params.GithubURL }}
+            {{ range .Params.issues }}
+            <tr class="is-size-7">
+                <th>
+                    <a href="{{ $githubUrl }}/issues/{{ .id }}">{{ .title }}</a>
+                </th>
+                <td>{{ dateFormat "January 2, 2006" .created_at }}</td>
+                <td>{{ dateFormat "January 2, 2006" .updated_at }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    {{ end }}
+
     <h2>Compatibility</h2>
     {{ if gt (len .Params.testcases) 0 }}
     <table class="table">
@@ -110,31 +135,6 @@
     </table>
     {{ else }}
     <p>This game is untested. Please play through this game and report your compatibility with this title.</p>
-    {{ end }}
-
-    {{ if gt (len .Params.issues) 0 }}
-    <h2>Known Issues</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Created</th>
-                <th>Last Updated</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ $githubUrl := .Site.Params.GithubURL }}
-            {{ range .Params.issues }}
-            <tr class="is-size-7">
-                <th>
-                    <a href="{{ $githubUrl }}/issues/{{ .id }}">{{ .title }}</a>
-                </th>
-                <td>{{ dateFormat "January 2, 2006" .created_at }}</td>
-                <td>{{ dateFormat "January 2, 2006" .updated_at }}</td>
-            </tr>
-            {{ end }}
-        </tbody>
-    </table>
     {{ end }}
 
     {{ if gt (len .Params.savefiles) 0 }}
