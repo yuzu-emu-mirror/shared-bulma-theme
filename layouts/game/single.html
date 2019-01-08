@@ -163,7 +163,7 @@
     <div class="baguetteBox">
         <div class="tile is-ancestor">
             {{ $files := readDir (printf "/static/images/screenshots0/%s/" .File.BaseFileName) }}
-            {{ range $index, $element := (shuffle $files) }}
+            {{ range $index, $element := $files }}
             {{ $fileTitle := (index (split .Name "-") 1) }}
             {{ $fileTitle := (index (split $fileTitle ".") 0) }}
             <div class="tile is-parent">

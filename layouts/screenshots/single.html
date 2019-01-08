@@ -7,7 +7,7 @@
     <div class="tile is-ancestor">
         {{ $columns := 3 }}
         {{ $files := readDir "/static/images/screenshots/" }}
-        {{ range $index, $element := (shuffle $files) }}
+        {{ range $index, $element := $files }}
         {{ $fileTitle := (index (split .Name "-") 1) }}
         {{ $fileTitle := (index (split $fileTitle ".") 0) }}
         <div class="tile is-parent">
