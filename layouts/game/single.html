@@ -3,7 +3,11 @@
 {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
 <section class="section content pt-sm">
     <div class="has-text-centered py-md">
-        <img src="{{ .Site.BaseURL }}/images/game/boxart/{{ .Params.Banner | default (print .File.BaseFileName ".png") }}" />
+        {{ if (fileExists (print "static/images/game/boxart/" .File.BaseFileName ".png")) }}
+        <img src="{{ .Site.BaseURL }}/images/game/boxart/{{ .File.BaseFileName }}.png" />
+        {{ else }}
+        <img src="{{ .Site.BaseURL }}/images/game/boxart/_default.png" />
+        {{ end }}
     </div>
 
     <div class="columns is-mobile">
@@ -19,7 +23,7 @@
         <div class="column">
             {{ range .Params.releases }}
             <div>
-                <div><img src="{{ .Site.BaseURL }}/images/regions/{{ .region }}.png" /> {{ .id }}</div>
+                <div><img src="{{ .Site.BaseURL }}/images/regions/{{ .region | default "all" }}.png" /> {{ .id }}</div>
             </div>
             {{ end }}
         </div>
