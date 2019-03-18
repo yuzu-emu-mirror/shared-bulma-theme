@@ -6,7 +6,7 @@
         {{ if (fileExists (print "static/images/game/boxart/" .File.BaseFileName ".png")) }}
         <img src="{{ .Site.BaseURL }}/images/game/boxart/{{ .File.BaseFileName }}.png" />
         {{ else }}
-        <img src="{{ .Site.BaseURL }}/images/game/boxart/_default.png" />
+        <img src="{{ .Site.BaseURL }}/images/boxart.png" />
         {{ end }}
     </div>
 
