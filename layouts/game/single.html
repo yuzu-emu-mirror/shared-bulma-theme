@@ -141,6 +141,44 @@
     <p>This game is untested. Please play through this game and report your compatibility with this title.</p>
     {{ end }}
 
+    {{ if eq .Params.title "The Legend of Zelda: Link's Awakening" }}
+    <h2>Game Mods</h2>
+    <small><a href="https://yuzu-emu.org/help/feature/game-modding/">See our game modding article on how to apply patches.</a></small>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><a href="/mods/ZLA_Noblur_Mod.zip">ZLA_Noblur_Mod.zip</a></td>
+              <td>Disables blur and depth of field.</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ end }}
+
+    <h2>Savefiles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .Params.savefiles }}
+            <tr>
+              <td><a href="/savefiles/{{ $gameId }}/{{ .basename }}.zip">{{ .title }}</a></td>
+              <td>{{ .description }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    {{ end }}
+
     {{ if gt (len .Params.savefiles) 0 }}
     <h2>Savefiles</h2>
     <table class="table">
