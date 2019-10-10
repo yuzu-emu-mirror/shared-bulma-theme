@@ -160,25 +160,6 @@
     </table>
     {{ end }}
 
-    <h2>Savefiles</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ range .Params.savefiles }}
-            <tr>
-              <td><a href="/savefiles/{{ $gameId }}/{{ .basename }}.zip">{{ .title }}</a></td>
-              <td>{{ .description }}</td>
-            </tr>
-            {{ end }}
-        </tbody>
-    </table>
-    {{ end }}
-
     {{ if gt (len .Params.savefiles) 0 }}
     <h2>Savefiles</h2>
     <table class="table">
