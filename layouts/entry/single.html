@@ -1,30 +1,39 @@
 {{ define "header" }}
 {{ $author := index .Site.Data.authors ( .Params.author | default "" ) }}
-<div class="container">
-    <div class="mb-md blog-entry-header single" style="background-image: url('{{ .Site.BaseURL }}/{{ .Dir }}banner.png')">
-        <div>
-            <span class="title px-md py-sm has-background-dark">{{ .Title }}</span>
-        </div>
-        {{ if $author }}
-        <div class="mt-lg">
-            <span class="h3 px-md py-sm has-background-dark">
-                Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a> 
-                on {{ .Date.Format $.Site.Params.fmt.Date }}
-            </span> 
-        </div>
-        {{ else }}
-        <div>
-            <span class="h3 px-md py-sm has-background-dark">
-                Written on {{ .Date.Format $.Site.Params.fmt.Date }}
-            </span>
-        </div>
-        {{ end }}
+{{ $coauthor := index .Site.Data.authors ( .Params.coauthor | default "" ) }}
+<div class="mb-md blog-entry-header single" style="background-image: url('{{ .Site.BaseURL }}/{{ .Dir }}banner.png')"></div>
+<div class="has-text-centered">
+    <div>
+        <span class="title px-md py-sm">{{ .Title }}</span>
     </div>
+        {{ if and $author $coauthor }}
+    <div>
+        <span class="h3 px-md py-sm">
+            Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a> 
+            and <a href="https://community.citra-emu.org/users/{{ $coauthor.key }}">{{ $coauthor.name }}</a> 
+            on {{ .Date.Format $.Site.Params.fmt.Date }}
+        </span> 
+    </div>
+    {{ else if $author }}
+    <div>
+        <span class="h3 px-md py-sm">
+            Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a> 
+            on {{ .Date.Format $.Site.Params.fmt.Date }}
+        </span> 
+    </div>
+    {{ else }}
+    <div>
+        <span class="h3 px-md py-sm">
+            Written on {{ .Date.Format $.Site.Params.fmt.Date }}
+        </span>
+    </div>
+    {{ end }}
 </div>
 {{ end }}
 
 {{ define "main" }}
 <section class="section content pt-sm">
+    <br>
     {{ .Content }}
 </section>
 
