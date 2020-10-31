@@ -8,7 +8,7 @@
     </div>
         {{ if and $author $coauthor }}
     <div>
-        <span class="h3 px-md py-sm ">
+        <span class="h3 px-md py-sm">
             Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a> 
             and <a href="https://community.citra-emu.org/users/{{ $coauthor.key }}">{{ $coauthor.name }}</a> 
             on {{ .Date.Format $.Site.Params.fmt.Date }}
