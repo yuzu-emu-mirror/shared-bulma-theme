@@ -1,7 +1,7 @@
 {{ define "header" }}
 {{ $author := index .Site.Data.authors ( .Params.author | default "" ) }}
 {{ $coauthors := split ( .Params.coauthor | default "" ) "," }}
-<div class="mb-md blog-entry-header single" style="background-image: url('{{ .Site.BaseURL }}/{{ .Dir }}banner.png')"></div>
+<div class="mb-md blog-entry-header single" style="background-image: url('{{ .Site.BaseURL }}/{{ .Dir }}banner.png');background-repeat:no-repeat;background-size:contain;background-position:center;"></div>
 <div class="has-text-centered">
     <div>
         <span class="title px-md py-sm">{{ .Title }}</span>
