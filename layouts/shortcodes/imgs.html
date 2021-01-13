@@ -14,7 +14,11 @@
             </video>
         {{ else }}
             <a href="{{ $src }}" title="{{ $title }}">
+                {{- if eq $extension "png" -}}
                 <img src="{{ $src }}.jpg" alt="{{ $title }}">
+                {{- else -}}
+                <img src="{{ $src }}" alt="{{ $title }}">
+                {{- end -}}
             </a>
         {{ end }}
         {{ if $title }}

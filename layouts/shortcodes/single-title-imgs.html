@@ -15,7 +15,11 @@
             </video>
         {{ else }}
             <a href="{{ $src }}" title="{{ $subtitle }}">
-                <img src="{{ $src }}.jpg" alt="{{ $subtitle }}">
+                {{- if eq $extension "png" -}}
+                <img src="{{ $src }}.jpg" alt="{{ $title }}">
+                {{- else -}}
+                <img src="{{ $src }}" alt="{{ $title }}">
+                {{- end -}}
             </a>
         {{ end }}
     </div>
