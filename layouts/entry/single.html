@@ -6,7 +6,7 @@
     <div>
         <span class="title px-md py-sm">{{ .Title }}</span>
     </div>
-    {{ if and $author $coauthors }}
+    {{ if and $author (gt (len $coauthors) 1) }}
     <div>
         <p class="h3 px-md py-sm">
             Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a>
