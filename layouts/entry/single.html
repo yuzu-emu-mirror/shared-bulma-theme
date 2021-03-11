@@ -6,7 +6,8 @@
     <div>
         <span class="title px-md py-sm">{{ .Title }}</span>
     </div>
-    {{ if and $author (gt (len $coauthors) 1) }}
+    {{/* if $author && .Params.coauthor */}}
+    {{ if and $author .Params.coauthor }}
     <div>
         <p class="h3 px-md py-sm">
             Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a>
@@ -19,12 +20,12 @@
                 {{ $length := len $coauthors }}
                 {{ range $i, $name := $coauthors }}
                 {{ $coauthor := index $.Site.Data.authors $name }}
-                    {{/*  if i == length -1  */}}
+                    {{/*  if i == (length -1)  */}}
                     {{ if eq $i (sub $length 1) }}
                     and
                     {{ end }}
                 <a href="https://community.citra-emu.org/users/{{ $coauthor.key }}">{{ $coauthor.name }}</a>{{- if lt $i (sub $length 1) -}},{{- end -}}
-                {{/*  if i < length - 1  */}}
+                {{/*  if i < (length - 1)  */}}
                 {{ end }}
             {{ end }}
             on {{ .Date.Format $.Site.Params.fmt.Date }}
