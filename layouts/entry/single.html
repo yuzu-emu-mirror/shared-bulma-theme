@@ -10,11 +10,11 @@
     {{ if and $author .Params.coauthor }}
     <div>
         <p class="h3 px-md py-sm">
-            Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a>
+            Written by <a href="https://community.citra-emu.org/u/{{ $author.key }}/summary">{{ $author.name }}</a>
             {{/*  if len($coauthors) < 2  */}}
             {{ if lt (len $coauthors) 2 }}
             {{ $coauthor := index .Site.Data.authors ( .Params.coauthor | default "" ) }}
-            and <a href="https://community.citra-emu.org/users/{{ $coauthor.key }}">{{ $coauthor.name }}</a>
+            and <a href="https://community.citra-emu.org/u/{{ $coauthor.key }}/summary">{{ $coauthor.name }}</a>
             {{ else }}
             in collaboration with 
                 {{ $length := len $coauthors }}
@@ -24,7 +24,7 @@
                     {{ if eq $i (sub $length 1) }}
                     and
                     {{ end }}
-                <a href="https://community.citra-emu.org/users/{{ $coauthor.key }}">{{ $coauthor.name }}</a>{{- if lt $i (sub $length 1) -}},{{- end -}}
+                <a href="https://community.citra-emu.org/u/{{ $coauthor.key }}/summary">{{ $coauthor.name }}</a>{{- if lt $i (sub $length 1) -}},{{- end -}}
                 {{/*  if i < (length - 1)  */}}
                 {{ end }}
             {{ end }}
@@ -34,7 +34,7 @@
     {{ else if $author }}
     <div>
         <span class="h3 px-md py-sm">
-            Written by <a href="https://community.citra-emu.org/users/{{ $author.key }}">{{ $author.name }}</a>
+            Written by <a href="https://community.citra-emu.org/u/{{ $author.key }}/summary">{{ $author.name }}</a>
             on {{ .Date.Format $.Site.Params.fmt.Date }}
         </span>
     </div>
