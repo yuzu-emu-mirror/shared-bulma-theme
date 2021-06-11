@@ -62,26 +62,22 @@
         </div>
     {{ else if eq $left_sidebar true }}
         <div class="container">
-            <div class="columns">
-                <div class="column">
-                    {{ block "sidebar" . }}{{ end }}
-                    {{ partial "layout/sidebar" }}
-                </div>
-                <div class="column is-two-thirds">
-                    {{ block "main" . }}{{ end }}
-                </div>
+            <div class="column is-four-fifths">
+                {{ block "main" . }}{{ end }}
+            </div>
+            <div class="column">
+                {{ block "sidebar" . }}{{ end }}
+                {{ partial "layout/sidebar" }}
             </div>
         </div>
     {{ else }}
         <div class="container">
-            <div class="columns">
-                <div class="column is-two-thirds">
-                    {{ block "main" . }}{{ end }}
-                </div>
-                <div class="column">
-                    {{ block "sidebar" . }}{{ end }}
-                    {{ partial "layout/sidebar" }}
-                </div>
+            <div class="column is-four-fifths">
+                {{ block "main" . }}{{ end }}
+            </div>
+            <div class="column">
+                {{ block "sidebar" . }}{{ end }}
+                {{ partial "layout/sidebar" }}
             </div>
         </div>
     {{ end }}
