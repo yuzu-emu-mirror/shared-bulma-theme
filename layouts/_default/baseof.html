@@ -62,8 +62,10 @@
         </div>
     {{ else if eq $left_sidebar true }}
         <div class="container">
-            <div class="column is-four-fifths">
-                {{ block "main" . }}{{ end }}
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    {{ block "main" . }}{{ end }}
+                </div>
             </div>
             <div class="column">
                 {{ block "sidebar" . }}{{ end }}
@@ -72,8 +74,10 @@
         </div>
     {{ else }}
         <div class="container">
-            <div class="column is-four-fifths">
-                {{ block "main" . }}{{ end }}
+            <div class="columns is-centered">
+                <div class="column is-four-fifths">
+                    {{ block "main" . }}{{ end }}
+                </div>
             </div>
             <div class="column">
                 {{ block "sidebar" . }}{{ end }}
