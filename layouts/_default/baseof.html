@@ -66,10 +66,14 @@
                 <div class="column is-four-fifths">
                     {{ block "main" . }}{{ end }}
                 </div>
+                <div class="column">
+                    {{ block "sidebar" . }}{{ end }}
+                    {{ partial "layout/sidebar" }}
+                </div>
             </div>
             <div class="column">
-                {{ block "sidebar" . }}{{ end }}
-                {{ partial "layout/sidebar" }}
+                {{ block "btm_bar" . }}{{ end }}
+                {{ partial "layout/btm_bar" }}
             </div>
         </div>
     {{ else }}
@@ -78,10 +82,14 @@
                 <div class="column is-four-fifths">
                     {{ block "main" . }}{{ end }}
                 </div>
+                <div class="column">
+                    {{ block "sidebar" . }}{{ end }}
+                    {{ partial "layout/sidebar" }}
+                </div>
             </div>
             <div class="column">
-                {{ block "sidebar" . }}{{ end }}
-                {{ partial "layout/sidebar" }}
+                {{ block "btm_bar" . }}{{ end }}
+                {{ partial "layout/btm_bar" }}
             </div>
         </div>
     {{ end }}
