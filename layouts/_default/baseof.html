@@ -105,7 +105,9 @@
 
     {{- if eq (getenv "HUGO_ENV") "PRD" }}
     <script type="text/javascript">
-        (adsbygoogle = window.adsbygoogle || []).push({});
+        for (var i = 0; i < document.getElementsByClassName('adsbygoogle').length; i++) {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        }
     </script>
     {{- end }}
 </body>
