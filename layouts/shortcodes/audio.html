@@ -1,0 +1,19 @@
+{{ $src := .Get 0 }}
+{{ $split_src := split $src "." }}
+{{ $extension := index $split_src (sub (len $split_src) 1) }}
+
+<audio preload="auto" controls>
+    {{ if eq $extension "ogg" }}
+        <source src="{{ $src }}" type="audio/ogg">
+        Your browser doesn't support Ogg Vorbis audio. :(
+        <a href="{{ $src }}">Download the audio instead</a>
+    {{ else if eq $extension "mp3" }}
+        <source src="{{ $src }}" type="audio/mpeg">
+        <a href="{{ $src }}">Download the audio instead</a>
+    {{ else if eq $extension "wav" }}
+        <source src="{{ $src }}" type="audio/wav">
+        <a href="{{ $src }}">Download the audio instead</a>
+    {{ else }}
+        <a href="{{ $src }}">Download the audio instead</a>
+    {{ end }}
+</audio>
