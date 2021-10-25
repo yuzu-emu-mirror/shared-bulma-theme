@@ -15,7 +15,9 @@
 </div>
 {{ else }}
 {{ $author := index .Site.Data.authors ( .Params.author | default "" ) }}
-<div class="mb-md blog-entry-header summary entry" style="background-image: url('/{{ path.Join .File.Dir "summary.png" }}')" data-href="{{ .Permalink }}">
+{{ $original := (.Page.Resources.ByType "image").GetMatch "summary.png" }}
+{{ $resized := $original.Resize "1280x q90 jpg" }}
+<div class="mb-md blog-entry-header summary entry" style="background-image: url('{{ $resized.Permalink }}')" data-href="{{ .Permalink }}">
     <div class="px-md">
         <span class="title">{{ .Title }}</span>
     </div>

@@ -1,3 +1,4 @@
+{{ $originals := (.Page.Resources.ByType "image") }}
 <div class="columns is-img-preview">
     {{ range $param := .Params }}
     <!-- image -->
@@ -15,7 +16,10 @@
         {{ else }}
             <a href="{{ $src }}" title="{{ $title }}">
                 {{- if eq $extension "png" -}}
-                <img src="{{ $src }}.jpg" alt="{{ $title }}">
+                {{ $original := $originals.GetMatch (printf "*%s" (path.Base $src)) }}
+                {{ $resized_width := math.Min $original.Width 1024 }}
+                {{ $resized := $original.Resize (print $resized_width "x q90 jpg" ) }}
+                <img src="{{ $resized.Permalink }}" alt="{{ $title }}">
                 {{- else -}}
                 <img src="{{ $src }}" alt="{{ $title }}">
                 {{- end -}}
