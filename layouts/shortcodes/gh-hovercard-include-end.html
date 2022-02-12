@@ -15,6 +15,7 @@
     .gh-hover-icon.open { filter: invert(56%) sepia(47%) saturate(665%) hue-rotate(77deg) brightness(99%) contrast(83%); }
     .gh-hover-icon.closed { filter: invert(50%) sepia(95%) saturate(3977%) hue-rotate(336deg) brightness(95%) contrast(90%); }
     .gh-hover-icon.merged { filter: invert(47%) sepia(17%) saturate(4072%) hue-rotate(228deg) brightness(95%) contrast(89%); }
+    .gh-hover { border-bottom: dotted; }
 </style>
 <script>
     tippy('.gh-hover', {
@@ -23,7 +24,7 @@
             showHovercard(instance, '{{ getenv "TENANT" }}');
         },
         allowHTML: true,
-        followCursor: true,
+        followCursor: 'horizontal',
         interactive: true,
     });
 </script>
