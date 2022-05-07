@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="theme-color" content="#404040">
 
-    <meta property="og:title" content="{{ if ne .URL " / " }}{{ .Title }} &middot; {{ end }}{{ .Site.Title }}" />
+    <meta property="og:title" content="{{ if ne .RelPermalink " / " }}{{ .Title }} &middot; {{ end }}{{ .Site.Title }}" />
     <meta property="og:site_name" content="{{ .Site.Title }}" />
     <meta property="og:url" content="{{ .Permalink }}" />
     {{ .Render "meta" }}
 
     <link rel="icon" href="{{ .Site.BaseURL }}/favicon.ico" />
     <link rel="shortcut icon" href="{{ .Site.BaseURL }}/favicon.ico" type="image/x-icon" />
-    <link rel="canonical" href="{{ .Permalink }}"> {{ if .RSSLink }}
+    <link rel="canonical" href="{{ .Permalink }}"> {{ if .OutputFormats.Get "RSS" }}
     <link href="{{ .Site.BaseURL }}/index.xml" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
     <link href="{{ .Site.BaseURL }}/index.xml" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" /> {{ end }}
 
