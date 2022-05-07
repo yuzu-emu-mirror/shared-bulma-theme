@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody class="is-size-7">
-            {{ range .Pages }}
+            {{ range sort .Pages "Params.title" "asc" }}
             {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
             <tr data-key="{{ .Params.section_id }}">
                 <td data-title="{{ .Params.title }}">
