@@ -102,7 +102,7 @@
     </div>
 
     {{ $mainJs := resources.Match "js/**.js" | resources.Concat "js/script.js" | minify | fingerprint }}
-    <script src="{{ $mainJs.Permalink }}" integrity="{{ $mainJs.Data.Integrity }}"></script>
+    <script src="{{ $mainJs.Permalink }}" integrity="{{ $mainJs.Data.Integrity }}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{- block "scripts" . }}{{- end }}
 
     {{- if eq (getenv "HUGO_ENV") "PRD" }}
