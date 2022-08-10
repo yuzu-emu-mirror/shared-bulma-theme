@@ -141,9 +141,8 @@
     <p>This game is untested. Please play through this game and report your compatibility with this title.</p>
     {{ end }}
 
-    {{ if eq .Params.title "The Legend of Zelda: Link's Awakening" }}
+    {{ if gt (len .Params.mods) 0 }}
     <h2>Game Mods</h2>
-    <small><a href="https://yuzu-emu.org/help/feature/game-modding/">See our game modding article on how to apply patches.</a></small>
     <table class="table">
         <thead>
             <tr>
@@ -152,10 +151,12 @@
             </tr>
         </thead>
         <tbody>
+            {{ range .Params.mods }}
             <tr>
-              <td><a href="/mods/ZLA_Noblur_Mod.zip">ZLA_Noblur_Mod.zip</a></td>
-              <td>Disables blur and depth of field.</td>
+              <td><a href="/mods/{{ $gameId }}/{{ .basename }}.zip">{{ .title }}</a></td>
+              <td>{{ .description }}</td>
             </tr>
+            {{ end }}
         </tbody>
     </table>
     {{ end }}
