@@ -24,19 +24,46 @@
 {{ end }}
 
 {{ define "main" }}
-<div class="section pt-xs">
-    <table class="table is-fullwidth">
-        <thead>
-            <tr>
-                <th>Game Title</th>
-                <th>Compatibility</th>
-                <th>Date Tested</th>
+    <div id="game-listing">
+	<div class="container1">
+			<div class="div1">
+		<ul class="pagination paginationTop is-pulled-left"></ul> 
+		</div>
+        <div>
+            <form>
+                <div class="form-group">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="input-group search-box div2">
+                                    <input type="text" class="search input is-rounded" id="search-box" placeholder="Search...">
+                                    <!-- <span class="clear-search input-group-addon">X</span> -->
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+		</div>
+ 
+ <div class="section pt-xs">
+        <table id="compatibility-list" class="table table-responsive is-fullwidth">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="sort" data-sort="title">Game Title</th>
+                    <th class="sort" data-sort="compatibility">Compatibility</th>
+                    <th class="sort" data-sort="date-tested">Date Tested</th>
             </tr>
         </thead>
-        <tbody class="is-size-7">
+        <tbody class="list is-size-6">
             {{ range .Pages }}
             {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
             <tr data-key="{{ .Params.section_id }}">
+			<td class="hidden listing-metadata">
+                            <span hidden>{{ .Params.title }} {{ $rating.name }}</span>
+                        </td>
                 <td data-title="{{ .Params.title }}">
                     <a href="{{ .Permalink }}">{{ .Params.title }}</a>
                 </td>
@@ -54,8 +81,79 @@
             {{ end }}
         </tbody>
     </table>
+        <ul class="pagination paginationBottom is-pulled-left"></ul>
+		</div>
 </div>
 {{ end }}
 
 {{ define "scripts" }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        function getLastSorted(list){
+            var currentSorted = $(list.listContainer).find(".asc, .desc").attr("data-sort");
+            if ('undefined' !== typeof currentSorted)
+                list.lastSorted = currentSorted;
+            return list.lastSorted;
+        }
+ 
+        function filterTable(_) {
+            var rating = this.name;
+            var index = this.index;
+ 
+            $("#search-box").val(rating);
+            list.search(index, ['compatibility']);
+        }
+ 
+        function clearSearch() {
+            $("#search-box").val("");
+            list.search();
+        }
+ 
+        var options = {
+            valueNames: [
+                'listing-metadata',
+                { name: 'title', attr: 'data-title' },
+                { name: 'compatibility', attr: 'data-compatibility' },
+                { name: 'date-tested', attr: 'data-timestamp' }
+            ],
+            searchColumns: [ 'listing-metadata' ],
+            pagination: [
+                { paginationClass: "paginationTop" },
+                { paginationClass: "paginationBottom" }
+            ],
+            indexAsync: true,
+            page: 30
+        };
+ 
+        var list = new List('game-listing', options);
+ 
+        list.sort("title", {order: "asc"});
+ 
+        list.on("updated", function(list){
+            var $list = $(list.list);
+            var $items = $list.children();
+            $items.removeClass("key");
+            if ('title' == getLastSorted(list)){
+                $items.each(function(){
+                    var key = $(this).attr("data-key")
+                    if (
+                        $list
+                        .children("[data-key='" + key + "']")
+                        .first()
+                        .is( $(this) )
+                    ){
+                        $(this).addClass("key");
+                    }
+                })
+            }
+        });
+ 
+        $('#game-listing .clear-search').click(clearSearch);
+    });
+</script>
+
 {{ end }}
