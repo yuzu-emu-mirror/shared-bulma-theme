@@ -1,95 +1,95 @@
 {{ define "header" }}
 <div class="container">
-    <div class="section pb-xs">
-        <h1 class="title">Game Compatibility List</h1>
-        <p class="content">
-            The compatibility list contains all the games we tested, sorted by how well they work on the emulator.
-        </p>
-        <table class="table is-fullwidth">
-            <tbody>
-                {{ range .Site.Data.compatibility }}
-                <tr>
-                    <td>
-                        <div class="is-square" style="background-color: {{ .color }}"></div> {{ .name }}
-                    </td>
-                    <td>{{ .description }}</td>
-                </tr>
-                {{ end }}
-            </tbody>
-        </table>
-
-        <!-- <div id="highchart-container" style="height: 100px; margin: 0 auto"></div> -->
-    </div>
+   <div class="section pb-xs">
+      <h1 class="title">Game Compatibility List</h1>
+      <p class="content">
+         The compatibility list contains all the games we tested, sorted by how well they work on the emulator.
+      </p>
+      <table class="table is-fullwidth">
+         <tbody>
+            {{ range .Site.Data.compatibility }}
+            <tr>
+               <td>
+                  <div class="is-square" style="background-color: {{ .color }}"></div>
+                  {{ .name }}
+               </td>
+               <td>{{ .description }}</td>
+            </tr>
+            {{ end }}
+         </tbody>
+      </table>
+      <!-- <div id="highchart-container" style="height: 100px; margin: 0 auto"></div> -->
+   </div>
 </div>
 {{ end }}
 
 {{ define "main" }}
-    <div id="game-listing">
-	<div class="container1">
-			<div class="div1">
-		<ul class="pagination paginationTop is-pulled-left"></ul> 
-		</div>
-        <div>
-            <form>
-                <div class="form-group">
-                    <table>
-                        <tr>
-                            <td>
-                                <div class="input-group search-box div2">
-                                    <input type="text" class="search input is-rounded" id="search-box" placeholder="Search...">
-                                    <!-- <span class="clear-search input-group-addon">X</span> -->
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </form>
-        </div>
-		</div>
- 
- <div class="section pt-xs">
-        <table id="compatibility-list" class="table table-responsive is-fullwidth">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th class="sort" data-sort="title">Game Title</th>
-                    <th class="sort" data-sort="compatibility">Compatibility</th>
-                    <th class="sort" data-sort="date-tested">Date Tested</th>
+<div id="game-listing">
+   <div class="container1">
+      <div class="div1">
+         <ul class="pagination paginationTop is-pulled-left"></ul>
+      </div>
+      <div>
+         <form>
+            <div class="form-group">
+               <table>
+                  <tr>
+                     <td>
+                        <div class="input-group search-box div2">
+                           <input type="text" class="search input is-rounded" id="search-box" placeholder="Search...">
+                           <!-- <span class="clear-search input-group-addon">X</span> -->
+                        </div>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </form>
+      </div>
+   </div>
+   <div class="section pt-xs">
+      <table id="compatibility-list" class="table table-responsive is-fullwidth">
+         <thead>
+            <tr>
+               <th></th>
+               <th class="sort" data-sort="title">Game Title</th>
+               <th class="sort" data-sort="compatibility">Compatibility</th>
+               <th class="sort" data-sort="date-tested">Date Tested</th>
             </tr>
-        </thead>
-        <tbody class="list is-size-6">
+         </thead>
+         <tbody class="list is-size-6">
             {{ range .Pages }}
             {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
             <tr data-key="{{ .Params.section_id }}">
-			<td class="hidden listing-metadata">
-                            <span hidden>{{ .Params.title }} {{ $rating.name }}</span>
-                        </td>
-                <td data-title="{{ .Params.title }}">
-                    <a href="{{ .Permalink }}">{{ .Params.title }}</a>
-                </td>
-                <td data-compatibility="{{ $rating.key }}">
-                    <div class="is-square" style="background-color: {{ $rating.color }}"></div> <span>{{ $rating.name }}</span>
-                </td>
-                <td data-timestamp="{{ .Params.testcase_date }}">
-					{{ if .Params.testcase_date }}
-					<span>{{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
-					{{ else }}
-					<span></span>
-					{{ end }}
-                </td>
+               <td class="hidden listing-metadata">
+                  <span hidden>{{ .Params.title }} {{ $rating.name }}</span>
+               </td>
+               <td data-title="{{ .Params.title }}">
+                  <a href="{{ .Permalink }}">{{ .Params.title }}</a>
+               </td>
+               <td data-compatibility="{{ $rating.key }}">
+                  <div class="is-square" style="background-color: {{ $rating.color }}"></div>
+                  <span>{{ $rating.name }}</span>
+               </td>
+               <td data-timestamp="{{ .Params.testcase_date }}">
+                  {{ if .Params.testcase_date }}
+                  <span>{{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
+                  {{ else }}
+                  <span></span>
+                  {{ end }}
+               </td>
             </tr>
             {{ end }}
-        </tbody>
-    </table>
-        <ul class="pagination paginationBottom is-pulled-left"></ul>
-		</div>
+         </tbody>
+      </table>
+      <ul class="pagination paginationBottom is-pulled-left"></ul>
+   </div>
 </div>
 {{ end }}
 
 {{ define "scripts" }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
-                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" 
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 
 <script type="text/javascript">
     $(function() {
