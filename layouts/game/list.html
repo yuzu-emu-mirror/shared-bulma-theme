@@ -37,7 +37,6 @@
                      <td>
                         <div class="input-group search-box search-container">
                            <input type="text" class="search input is-rounded" id="search-box" placeholder="Search...">
-                           <!-- <span class="clear-search input-group-addon">X</span> -->
                         </div>
                      </td>
                   </tr>
@@ -71,11 +70,7 @@
                   <span>{{ $rating.name }}</span>
                </td>
                <td class="date-tested" data-timestamp="{{ .Params.testcase_date }}">
-                  {{ if .Params.testcase_date }}
-                  <span>{{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
-                  {{ else }}
-                  <span></span>
-                  {{ end }}
+                  <span>{{ if .Params.testcase_date }}{{ dateFormat "January 2, 2006" .Params.testcase_date }}{{ end }}</span>
                </td>
             </tr>
             {{ end }}
@@ -87,16 +82,18 @@
 {{ end }}
 
 {{ define "scripts" }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"
+        integrity="sha256-NEVvGNMGqFvs6adGLZjm5sLgcuX9rGTg1wlGtA1f7M8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+        integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
     $(function() {
         function getLastSorted(list){
             var currentSorted = $(list.listContainer).find(".asc, .desc").attr("data-sort");
-            if ('undefined' !== typeof currentSorted)
+            if (!currentSorted)
                 list.lastSorted = currentSorted;
             return list.lastSorted;
         }
@@ -135,7 +132,7 @@
             var $list = $(list.list);
             var $items = $list.children();
             $items.removeClass("key");
-            if ('title' == getLastSorted(list)){
+            if ('title' === getLastSorted(list)){
                 $items.each(function(){
                     var key = $(this).attr("data-key")
                     if (
@@ -152,7 +149,7 @@
  
         $('#game-listing .clear-search').click(clearSearch);
 		
-        let dataset = [
+        var dataset = [
 					{{- $dataPages := .Data.Pages }}
 					{{- range .Site.Data.compatibility }}
 					{{- $dataPagesFiltered := where $dataPages ".Params.compatibility" .key }}
@@ -180,7 +177,7 @@
 				},
 				indexAxis: 'y',
 				onClick: (e) => {
-					const points = chart.getElementsAtEventForMode(e, 'nearest', {
+					var points = chart.getElementsAtEventForMode(e, 'nearest', {
 						intersect: true
 					}, true);
 					
