@@ -1,61 +1,195 @@
 {{ define "header" }}
 <div class="container">
-    <div class="section pb-xs">
-        <h1 class="title">Game Compatibility List</h1>
-        <p class="content">
-            The compatibility list contains all the games we tested, sorted by how well they work on the emulator.
-        </p>
-        <table class="table is-fullwidth">
-            <tbody>
-                {{ range .Site.Data.compatibility }}
-                <tr>
-                    <td>
-                        <div class="is-square" style="background-color: {{ .color }}"></div> {{ .name }}
-                    </td>
-                    <td>{{ .description }}</td>
-                </tr>
-                {{ end }}
-            </tbody>
-        </table>
-
-        <!-- <div id="highchart-container" style="height: 100px; margin: 0 auto"></div> -->
-    </div>
+   <div class="section pb-xs">
+      <h1 class="title">Game Compatibility List</h1>
+      <p class="content">
+         The compatibility list contains all the games that have been tested, sorted by how well they work on the emulator.
+      </p>
+      <table class="table is-fullwidth">
+         <tbody>
+            {{ range .Site.Data.compatibility }}
+            <tr>
+               <td>
+                  <div class="is-square" style="background-color: {{ .color }}"></div>
+                  {{ .name }}
+               </td>
+               <td>{{ .description }}</td>
+            </tr>
+            {{ end }}
+         </tbody>
+      </table>
+	  <canvas id="chartjs-container" style="width:100%;height:130px"></canvas>
+   </div>
 </div>
 {{ end }}
 
 {{ define "main" }}
-<div class="section pt-xs">
-    <table class="table is-fullwidth">
-        <thead>
+<div id="game-listing">
+   <div class="pagination-search-container">
+      <div class="pagination-container">
+         <ul class="pagination paginationTop is-pulled-left"></ul>
+      </div>
+      <div>
+         <form>
+            <div class="form-group">
+               <table>
+                  <tr>
+                     <td>
+                        <div class="input-group search-box search-container">
+                           <input type="text" class="search input is-rounded" id="search-box" placeholder="Search...">
+                        </div>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </form>
+      </div>
+   </div>
+   <div class="section pt-xs">
+      <table id="compatibility-list" class="table table-responsive is-fullwidth">
+         <thead>
             <tr>
-                <th>Game Title</th>
-                <th>Compatibility</th>
-                <th>Date Tested</th>
+               <th></th>
+               <th class="sort" data-sort="title">Game Title</th>
+               <th class="sort" data-sort="compatibility">Compatibility</th>
+               <th class="sort" data-sort="date-tested">Date Tested</th>
             </tr>
-        </thead>
-        <tbody class="is-size-7">
+         </thead>
+         <tbody class="list is-size-6">
             {{ range .Pages }}
             {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
             <tr data-key="{{ .Params.section_id }}">
-                <td data-title="{{ .Params.title }}">
-                    <a href="{{ .Permalink }}">{{ .Params.title }}</a>
-                </td>
-                <td data-compatibility="{{ $rating.key }}">
-                    <div class="is-square" style="background-color: {{ $rating.color }}"></div> <span>{{ $rating.name }}</span>
-                </td>
-                <td data-timestamp="{{ .Params.testcase_date }}">
-					{{ if .Params.testcase_date }}
-					<span>{{ dateFormat "January 2, 2006" .Params.testcase_date }}</span>
-					{{ else }}
-					<span></span>
-					{{ end }}
-                </td>
+               <td class="hidden listing-metadata">
+                  <span hidden>{{ .Params.title }} {{ $rating.name }}</span>
+               </td>
+               <td class="game-title" data-title="{{ .Params.title }}">
+                  <a href="{{ .Permalink }}">{{ .Params.title }}</a>
+               </td>
+               <td class="compatibility" data-compatibility="{{ $rating.key }}">
+                  <div class="is-square" style="background-color: {{ $rating.color }}"></div>
+                  <span>{{ $rating.name }}</span>
+               </td>
+               <td class="date-tested" data-timestamp="{{ .Params.testcase_date }}">
+                  <span>{{ if .Params.testcase_date }}{{ dateFormat "January 2, 2006" .Params.testcase_date }}{{ end }}</span>
+               </td>
             </tr>
             {{ end }}
-        </tbody>
-    </table>
+         </tbody>
+      </table>
+      <ul class="pagination paginationBottom is-pulled-left"></ul>
+   </div>
 </div>
 {{ end }}
 
 {{ define "scripts" }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"
+        integrity="sha256-NEVvGNMGqFvs6adGLZjm5sLgcuX9rGTg1wlGtA1f7M8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+        integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(function() {
+        function getLastSorted(list){
+            var currentSorted = $(list.listContainer).find(".asc, .desc").attr("data-sort");
+            if (!currentSorted)
+                list.lastSorted = currentSorted;
+            return list.lastSorted;
+        }
+ 
+        function filterTable(index, name) {
+            $("#search-box").val(name);
+            list.search(index, ['compatibility']);
+        }
+ 
+        function clearSearch() {
+            $("#search-box").val("");
+            list.search();
+        }
+ 
+        var options = {
+            valueNames: [
+                'listing-metadata',
+                { name: 'game-title', attr: 'data-title' },
+                { name: 'compatibility', attr: 'data-compatibility' },
+                { name: 'date-tested', attr: 'data-timestamp' }
+            ],
+            searchColumns: [ 'listing-metadata' ],
+            pagination: [
+                { paginationClass: "paginationTop" },
+                { paginationClass: "paginationBottom" }
+            ],
+            indexAsync: true,
+            page: 30
+        };
+ 
+        var list = new List('game-listing', options);
+ 
+        list.sort("title", {order: "asc"});
+ 
+        list.on("updated", function(list){
+            var $list = $(list.list);
+            var $items = $list.children();
+            $items.removeClass("key");
+            if ('title' === getLastSorted(list)){
+                $items.each(function(){
+                    var key = $(this).attr("data-key")
+                    if (
+                        $list
+                        .children("[data-key='" + key + "']")
+                        .first()
+                        .is( $(this) )
+                    ){
+                        $(this).addClass("key");
+                    }
+                })
+            }
+        });
+ 
+        $('#game-listing .clear-search').click(clearSearch);
+		
+        var dataset = [
+					{{- $dataPages := .Data.Pages }}
+					{{- range .Site.Data.compatibility }}
+					{{- $dataPagesFiltered := where $dataPages ".Params.compatibility" .key }}
+					{ axis: "y", "label": "{{ .name }}", "data": [ {{ len $dataPagesFiltered }} ], backgroundColor: "{{ .color }}" },
+					{{- end }}
+        ].reverse()
+
+		
+		var chart = new Chart("chartjs-container", {
+			type: 'bar',
+			data: {
+				labels: [""],
+				datasets: dataset
+			},
+			options: {
+				plugins: {
+					legend: {
+						display: false
+					}
+				},
+				responsive: true,
+				scales: {
+					x: { stacked: true },
+					y: { stacked: true },
+				},
+				indexAxis: 'y',
+				onClick: (e) => {
+					var points = chart.getElementsAtEventForMode(e, 'nearest', {
+						intersect: true
+					}, true);
+					
+					if(points.length) {
+					    // The index of compatibility ratings is reversed
+						filterTable(dataset.length - points[0].datasetIndex - 1, dataset[points[0].datasetIndex].label);
+					}
+				},
+			},
+		});
+
+    });
+</script>
+
 {{ end }}
