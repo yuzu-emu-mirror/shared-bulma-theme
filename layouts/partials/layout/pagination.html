@@ -7,17 +7,17 @@
     <nav class="pagination is-right" role="navigation" aria-label="pagination">
 
       {{ if $paginator.HasPrev }}
-        <a class="pagination-previous" href="{{ $paginator.Prev.URL }}">Previous Page</a>
+        <a class="pagination-previous" href="{{ $paginator.Prev.RelPermalink }}">Previous Page</a>
       {{ end }}
       
       {{ if $paginator.HasNext }}
-        <a class="pagination-next" href="{{ $paginator.Next.URL }}">Next Page</a>
+        <a class="pagination-next" href="{{ $paginator.Next.RelPermalink }}">Next Page</a>
       {{ end }}
 
       <ul class="pagination-list">
         {{ range $paginator.Pagers }}
         <li>
-          <a class="pagination-link" aria-label="Goto page {{ .PageNumber}}" href="{{ .URL }}">{{ .PageNumber }}</a>
+          <a class="pagination-link" aria-label="Goto page {{ .PageNumber}}" href="{{ .RelPermalink }}">{{ .PageNumber }}</a>
         </li>
         {{ end }}
       </ul>
