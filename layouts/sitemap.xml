@@ -6,13 +6,13 @@
 
     <loc>{{ .Permalink }}</loc>
 
-    {{ if (eq .Section "entry") }}
-    <image:image>
-      <image:loc>{{ .Site.BaseURL }}/images/banners/{{ .Params.Banner | default (print .File.BaseFileName ".png") }}</image:loc>
+    {{ if (eq .Section "entry") }}{{- $banner_fn := .Params.Banner | default (print .File.BaseFileName ".png") -}}
+    <image:image>{{- $fn := printf "/images/banners/%s" $banner_fn -}}{{- $banner := resources.Get $fn -}}
+      {{ with $banner }}<image:loc>{{- $thumb := .Fit "824x306 jpg" | resources.Copy (printf "%s.jpg" $fn) -}}{{ $thumb.Permalink }}</image:loc>{{ end }}
     </image:image>
     {{ else if (eq .Section "game") }}
-    <image:image>
-      <image:loc>{{ .Site.BaseURL }}/images/game/icons/{{ .File.BaseFileName }}.png</image:loc>
+    <image:image>{{- $fn := printf "/images/game/icons/%s.png" .File.BaseFileName -}}{{- $icon := resources.Get $fn -}}
+      {{ with $icon }}<image:loc>{{- $thumb := .Fill "48x48 jpg" | resources.Copy (printf "%s.jpg" $fn) -}}{{ $thumb.Permalink }}</image:loc>{{ end }}
     </image:image>
     {{ end }}
 
