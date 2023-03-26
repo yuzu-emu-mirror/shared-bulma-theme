@@ -13,7 +13,9 @@
         <div class="tile is-parent">
             <div class="tile is-child is-boxed">
                 <a href="/images/screenshots/{{ .Name }}" title="{{ $fileTitle }}">
-                    <img src="/images/screenshots/thumbs/{{ .Name }}" alt="{{ $fileTitle }}">
+                    {{ $screenshot := resources.Get (printf "/images/screenshots/%s" .Name) }}
+                    {{ $thumb := $screenshot.Fit "640x360 jpg" }}
+                    <img src="{{ $thumb.Permalink }}" alt="{{ $fileTitle }}">
                 </a>
             </div>
         </div>

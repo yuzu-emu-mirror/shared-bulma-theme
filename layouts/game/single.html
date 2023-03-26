@@ -3,8 +3,9 @@
 {{ $rating := index .Site.Data.compatibility .Params.compatibility }}
 <section class="section content pt-sm">
     <div class="has-text-centered py-md">
-        {{ if (fileExists (print "static/images/game/boxart/" .File.BaseFileName ".png")) }}
-        <img src="{{ .Site.BaseURL }}/images/game/boxart/{{ .File.BaseFileName }}.png" />
+        {{ $boxart := resources.Get (printf "/images/game/boxart/%s.png" $gameId) }}
+        {{ if $boxart }} {{ $boxart_thumb := $boxart.Fill "328x300" }}
+        <img src="{{ $boxart_thumb.Permalink }}" />
         {{ else }}
         <img src="{{ .Site.BaseURL }}/images/boxart.png" />
         {{ end }}
@@ -187,8 +188,6 @@
         <div class="tile is-ancestor">
             {{ $files := readDir (printf "/static/images/screenshots0/%s/" .File.BaseFileName) }}
             {{ range $index, $element := $files }}
-            {{ $fileTitle := (index (split .Name "-") 1) }}
-            {{ $fileTitle := (index (split $fileTitle ".") 0) }}
             <div class="tile is-parent">
                 <div class="tile is-child is-boxed">
                     <a href="/images/screenshots0/{{ $gameId }}/{{ .Name }}">
