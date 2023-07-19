@@ -20,7 +20,7 @@
 
     <title>{{- if not .IsHome }}{{ .Title }} - {{ .Site.Title }}{{- else }}{{ .Site.Title }} - {{ .Site.Params.Tagline }}{{- end}}</title>
     <link href="https://fonts.googleapis.com/css?family=Ubuntu|Dosis" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" rel="stylesheet">
     {{ $stylesheet := resources.Get "scss/style.scss" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $stylesheet.Permalink }}" />
     {{- block "css" . }}{{- end }}
